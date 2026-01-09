@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="100%" height="100%" fill="#fff8f9"/>
+  <rect x="180" y="160" width="440" height="220" rx="24" fill="#fff" stroke="#ffd1d8" stroke-width="8"/>
+  <circle cx="360" cy="230" r="18" fill="#ff6b6b"/>
+  <circle cx="420" cy="210" r="14" fill="#ff8fa3"/>
+  <circle cx="480" cy="240" r="16" fill="#ff6b6b"/>
+  <rect x="220" y="320" width="360" height="30" rx="8" fill="#ffd6c9"/>
+  <text x="50" y="80" font-family="Georgia,serif" font-size="36" fill="#b93d18">Copa de frutas</text>
+</svg>
