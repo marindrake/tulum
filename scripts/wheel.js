@@ -70,6 +70,47 @@
     return `TULUM${pct}-${t}-${r}`;
   }
 
+  // Audio helpers using WebAudio API (runs in browser)
+  function createAudioContext(){
+    try{ return new (window.AudioContext || window.webkitAudioContext)(); }catch(e){ return null; }
+  }
+  function startSpinSound(ctx){
+    if(!ctx) return null;
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sawtooth';
+    o.frequency.value = 120;
+    g.gain.value = 0.0001;
+    o.connect(g);
+    g.connect(ctx.destination);
+    o.start();
+    // ramp up
+    g.gain.exponentialRampToValueAtTime(0.02, ctx.currentTime + 0.25);
+    // sweep frequency slowly
+    o.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 4.5);
+    return {osc:o,gain:g,ctx:ctx};
+  }
+  function stopSpinSound(handle){
+    if(!handle) return;
+    try{
+      handle.gain.gain.exponentialRampToValueAtTime(0.0001, handle.ctx.currentTime + 0.8);
+      setTimeout(()=>{ try{ handle.osc.stop(); handle.osc.disconnect(); }catch(e){} }, 900);
+    }catch(e){}
+  }
+  function playSuccessChime(ctx){
+    if(!ctx) return;
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine';
+    o.frequency.value = 440;
+    g.gain.value = 0.0001;
+    o.connect(g); g.connect(ctx.destination);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 0.02);
+    o.frequency.linearRampToValueAtTime(660, ctx.currentTime + 0.18);
+    setTimeout(()=>{ g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.45); try{ o.stop(); }catch(e){} }, 400);
+  }
+
   function showModal(){
     if(document.getElementById('wheelModal')) return;
     document.body.insertAdjacentHTML('beforeend', modalHtml);
@@ -98,6 +139,8 @@
     }
 
     let spinning = false;
+    let audioHandle = null;
+    const audioCtx = createAudioContext();
     spinBtn.addEventListener('click', async ()=>{
       if(spinning) return;
       spinning = true;
@@ -116,6 +159,8 @@
       const randomSpins = 5 + Math.floor(Math.random()*3); // 5-7 spins
       const variability = (segAngle*0.6);
       const targetAngle = 360*randomSpins + (360 - (idx * segAngle) - segAngle/2) + (Math.random()*variability - variability/2);
+      // start audio
+      audioHandle = startSpinSound(audioCtx);
       wheel.style.transition = 'transform 5s cubic-bezier(.16,.84,.24,1)';
       wheel.style.transform = `rotate(${targetAngle}deg)`;
 
@@ -123,11 +168,20 @@
       wheel.addEventListener('transitionend', function onEnd(){
         wheel.removeEventListener('transitionend', onEnd);
         const code = generateCoupon(pct);
-        const payload = {pct, code, created: new Date().toISOString()};
+        // expiry: valid for next visit (30 days)
+        const created = new Date();
+        const expiry = new Date(created);
+        expiry.setDate(expiry.getDate() + 30);
+        const payload = {pct, code, created: created.toISOString(), expires: expiry.toISOString()};
         localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
         resultEl.innerHTML = `<strong>¡Ganaste ${pct}% de descuento!</strong><div style="margin-top:8px">Tu código: <code id="couponCode">${code}</code> <button id="copyCoupon" class="btn btn-small">Copiar</button></div><div style="margin-top:8px;font-size:13px;color:#666">Muestra este código en tu próxima visita.</div>`;
         const copyBtn = document.getElementById('copyCoupon');
         copyBtn && copyBtn.addEventListener('click', ()=>{ navigator.clipboard.writeText(code); alert('Código copiado'); });
+        // stop audio and play chime
+        stopSpinSound(audioHandle);
+        playSuccessChime(audioCtx);
+        // show terms modal with expiry
+        showTermsModal(payload);
         spinBtn.disabled = false;
         spinning = false;
       });
@@ -135,6 +189,21 @@
 
     closeBtn.addEventListener('click', ()=> modal.remove());
     modal.classList.add('open');
+  }
+
+  // Terms modal: shows expiry and basic terms, requires acknowledgment
+  function showTermsModal(payload){
+    // remove existing
+    if(document.getElementById('termsModal')) document.getElementById('termsModal').remove();
+    const div = document.createElement('div');
+    div.className = 'terms-modal open';
+    div.id = 'termsModal';
+    const expiry = new Date(payload.expires);
+    const expiryText = expiry.toLocaleDateString();
+    div.innerHTML = `<div class="terms-dialog" role="dialog" aria-modal="true"><h4>Términos del cupón</h4><p>Has obtenido <strong>${payload.pct}%</strong> de descuento. Código: <strong>${payload.code}</strong>.</p><p>Válido para la próxima visita hasta el <strong>${expiryText}</strong>. Presenta este código en el local para aplicar el descuento. No acumulable con otras promociones.</p><div class="terms-actions"><button id="termsClose" class="btn btn-primary">Aceptar</button><button id="termsDismiss" class="btn btn-outline">Cerrar</button></div></div>`;
+    document.body.appendChild(div);
+    document.getElementById('termsClose').addEventListener('click', ()=>{ div.remove(); });
+    document.getElementById('termsDismiss').addEventListener('click', ()=>{ div.remove(); });
   }
 
   // wire trigger

@@ -8,7 +8,7 @@
   --radius:10px;
 }
 *{box-sizing:border-box}
-body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:var(--bg); color:#222; -webkit-font-smoothing:antialiased}
+body{font-family:'Poppins', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:var(--bg); color:#222; -webkit-font-smoothing:antialiased}
 .container{max-width:var(--container); margin:0 auto; padding:0 16px}
 .site-header{background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,250,245,0.9)); border-bottom:1px solid #f0e6e0}
 .header-inner{display:flex; align-items:center; justify-content:space-between; padding:12px 0}
@@ -48,16 +48,27 @@ body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica
 }
 
   /* Spin trigger (temu-like) */
-  .spin-trigger{background:linear-gradient(135deg,#ff7a59,#ffb199);color:#fff;border:none;padding:10px 14px;border-radius:999px;font-weight:800;box-shadow:0 6px 18px rgba(255,122,89,0.28);display:inline-flex;align-items:center;gap:8px;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
-  .spin-trigger:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(255,122,89,0.32)}
+  .spin-trigger{position:relative;background:linear-gradient(135deg,#ff6b35,#ff9b66);color:#fff;border:none;padding:12px 18px;border-radius:999px;font-weight:800;box-shadow:0 8px 26px rgba(255,107,53,0.28);display:inline-flex;align-items:center;gap:10px;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,filter .18s}
+  .spin-trigger:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 36px rgba(255,107,53,0.32);filter:brightness(1.02)}
   .spin-trigger:active{transform:translateY(0)}
   .spin-trigger .spark{font-size:18px}
-
+  .spin-trigger::after{content:'';display:block;position:absolute;pointer-events:none;width:120%;height:120%;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:999px;z-index:-1;filter:blur(24px);opacity:0.18;background:radial-gradient(circle at 30% 30%, rgba(255,170,120,0.28), transparent 30%)}
+  /* subtle rotating sparkles */
+  .spin-trigger .spark{display:inline-block;animation:spin-spark 2.8s linear infinite}
+  @keyframes spin-spark{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-2px) rotate(12deg)}100%{transform:translateY(0) rotate(0)}}
   @keyframes pulse-surface{0%{box-shadow:0 6px 18px rgba(255,122,89,0.12)}50%{box-shadow:0 12px 28px rgba(255,122,89,0.22)}100%{box-shadow:0 6px 18px rgba(255,122,89,0.12)}}
   .spin-trigger{animation: pulse-surface 3s infinite}
 
   /* Wheel labels */
   .wheel .label{position:absolute;left:50%;top:50%;transform-origin:0 0;width:50%;height:50%;display:flex;align-items:flex-end;justify-content:flex-start;padding-left:6px;box-sizing:border-box;font-weight:700;color:#333}
+
+  /* Terms modal */
+  .terms-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);z-index:1100}
+  .terms-modal.open{display:flex}
+  .terms-dialog{background:#fff;padding:18px;border-radius:10px;max-width:420px;width:92%;box-shadow:0 10px 30px rgba(0,0,0,0.35);text-align:left}
+  .terms-dialog h4{margin:0 0 8px;font-size:18px}
+  .terms-dialog p{margin:6px 0;color:#444}
+  .terms-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
 .nav-toggle{background:none;border:none;font-size:20px;display:none}
 .nav-list{list-style:none; margin:0; padding:0; display:flex; gap:20px}
 .nav-list a{color:#333; text-decoration:none}
