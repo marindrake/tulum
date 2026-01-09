@@ -233,6 +233,8 @@
       const btn = document.getElementById(l === 'fr' ? 'langFR' : (l === 'en' ? 'langEN' : 'langES'));
       if(btn) btn.classList.add('active');
       applyTranslations();
+      // re-render menu to pick localized item names/descriptions
+      if(typeof loadMenu === 'function') loadMenu();
     }
 
     document.getElementById('langFR').addEventListener('click', ()=> setLang('fr'));
