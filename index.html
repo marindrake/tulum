@@ -14,19 +14,19 @@
         <img src="assets/logo.PNG" alt="Tulum logo" class="site-logo">
         <div class="brand-sub">Dessert & Snacks</div>
       </div>
-      <div class="lang-switch" style="display:flex;gap:8px;align-items:center">
-        <button id="langFR" aria-label="Français">FR</button>
-        <button id="langEN" aria-label="English">EN</button>
-        <button id="langES" aria-label="Español">ES</button>
+      <div class="lang-switch" aria-hidden="false">
+        <button id="langFR" aria-label="Français"><span class="flag">🇫🇷</span><span class="code">FR</span></button>
+        <button id="langEN" aria-label="English"><span class="flag">🇬🇧</span><span class="code">EN</span></button>
+        <button id="langES" aria-label="Español"><span class="flag">🇪🇸</span><span class="code">ES</span></button>
       </div>
       <nav class="nav" id="nav">
         <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
         <ul class="nav-list" id="navList">
-          <li><a href="#home">Inicio</a></li>
-          <li><a href="#menu">Menú</a></li>
-          <li><a href="#reservas">Reservas</a></li>
-          <li><a href="#galeria">Galería</a></li>
-          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="#home" data-i18n="nav.home">Inicio</a></li>
+          <li><a href="#menu" data-i18n="nav.menu">Menú</a></li>
+          <li><a href="#reservas" data-i18n="nav.reservations">Reservas</a></li>
+          <li><a href="#galeria" data-i18n="nav.gallery">Galería</a></li>
+          <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
         </ul>
       </nav>
     </div>
@@ -223,14 +223,29 @@
       // update nav links specially (they also have data-i18n)
     }
 
-    function setLang(l){ LANG = l; localStorage.setItem('tulum_lang', l); applyTranslations(); }
+    function setLang(l){
+      LANG = l;
+      localStorage.setItem('tulum_lang', l);
+      // set html lang attribute
+      document.documentElement.lang = (l === 'fr' ? 'fr' : (l === 'en' ? 'en' : 'es'));
+      // mark active button
+      document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+      const btn = document.getElementById(l === 'fr' ? 'langFR' : (l === 'en' ? 'langEN' : 'langES'));
+      if(btn) btn.classList.add('active');
+      applyTranslations();
+    }
 
     document.getElementById('langFR').addEventListener('click', ()=> setLang('fr'));
     document.getElementById('langEN').addEventListener('click', ()=> setLang('en'));
     document.getElementById('langES').addEventListener('click', ()=> setLang('es'));
 
     await loadTranslations();
-    applyTranslations();
+    // ensure default language (French) is applied on load
+    if(!localStorage.getItem('tulum_lang')){
+      setLang('fr');
+    } else {
+      setLang(localStorage.getItem('tulum_lang'));
+    }
 
     async function loadMenu(){
       try{
