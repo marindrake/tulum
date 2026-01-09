@@ -20,27 +20,36 @@
   </div>`;
 
   function createSegments(wheelEl, segments){
+    // Use conic-gradient for nice looking colored wheel and add rotated labels
     wheelEl.innerHTML = '';
-    const segAngle = 360 / segments.length;
-    segments.forEach((s, i)=>{
-      const div = document.createElement('div');
-      div.className = 'segment';
+    const segCount = segments.length;
+    const colors = ['#fff4e6','#fffbe6','#fff4f0','#fff0f6','#f0fff6','#e6fbff','#f0f7ff','#f7f0ff'];
+    const colorList = [];
+    for(let i=0;i<segCount;i++) colorList.push(colors[i % colors.length]);
+    const stops = colorList.map((c,i)=> `${c} ${Math.round((i/segCount)*100)}% ${(Math.round(((i+1)/segCount)*100))}%`).join(', ');
+    // build conic-gradient string
+    const grad = `conic-gradient(${colorList.map((c,i)=> `${c} ${i*(360/segCount)}deg ${(i+1)*(360/segCount)}deg`).join(',')})`;
+    wheelEl.style.background = grad;
+    // create labels
+    const segAngle = 360 / segCount;
+    segments.forEach((s,i)=>{
+      const lbl = document.createElement('div');
+      lbl.className = 'label';
       const angle = i * segAngle;
-      const color = i%2===0 ? '#fff8f3' : '#fff';
-      div.style.transform = `rotate(${angle}deg) translate(-100%, -100%)`;
-      div.innerHTML = `<div style="transform:rotate(${segAngle}deg);background:${color};padding:12px 10px;border-radius:6px;border:1px solid rgba(0,0,0,0.04);font-weight:700;">${s.text}</div>`;
-      wheelEl.appendChild(div);
+      lbl.style.transform = `rotate(${angle}deg) translate(-100%, -100%)`;
+      lbl.innerHTML = `<div style="transform: rotate(${segAngle}deg); padding:6px 8px; background:transparent;">${s.text}</div>`;
+      wheelEl.appendChild(lbl);
     });
   }
 
   function randomChoiceWeighted(){
-    // define possible results and weights (more chance for 10-15)
+    // adjusted probabilities: favor 10 and 12, rare 20
     return [
-      {pct:10, weight:30},
-      {pct:12, weight:25},
-      {pct:15, weight:20},
-      {pct:18, weight:15},
-      {pct:20, weight:10}
+      {pct:10, weight:40},
+      {pct:12, weight:28},
+      {pct:15, weight:16},
+      {pct:18, weight:10},
+      {pct:20, weight:6}
     ];
   }
 
@@ -71,7 +80,9 @@
     const resultEl = document.getElementById('wheelResult');
 
     // build visible segments for the wheel
-    const segments = [10,12,15,18,20].map(p=>({text:p+"%", pct:p}));
+    // more segments for a Temu-like wheel — repeat values to make 12 slices
+    const base = [10,12,15,10,12,18,10,15,20,12,10,15];
+    const segments = base.map(p=>({text: p + '%', pct: p}));
     createSegments(wheel, segments);
 
     // if user already has coupon, show it
@@ -95,14 +106,17 @@
       // Decide prize
       const pct = pickRandom();
       // find index in segments (use first match)
-      const idx = segments.findIndex(s=>s.pct===pct);
+      // pick an index among segments that match desired pct (random among matches)
+      const matching = segments.map((s,i)=> ({s,i})).filter(x=>x.s.pct===pct).map(x=>x.i);
+      const idx = matching[Math.floor(Math.random()*matching.length)];
       const segCount = segments.length;
       const segAngle = 360 / segCount;
       // compute target rotation so that pointer at top lands on chosen segment
       // wheel rotation: rotate to large number + target
       const randomSpins = 5 + Math.floor(Math.random()*3); // 5-7 spins
-      const targetAngle = 360*randomSpins + (360 - (idx * segAngle) - segAngle/2) + (Math.random()* (segAngle/2) - segAngle/4);
-      wheel.style.transition = 'transform 4s cubic-bezier(.12,.8,.25,1)';
+      const variability = (segAngle*0.6);
+      const targetAngle = 360*randomSpins + (360 - (idx * segAngle) - segAngle/2) + (Math.random()*variability - variability/2);
+      wheel.style.transition = 'transform 5s cubic-bezier(.16,.84,.24,1)';
       wheel.style.transform = `rotate(${targetAngle}deg)`;
 
       // wait for transition end

@@ -36,9 +36,9 @@ body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica
 .wheel-modal.open{display:flex}
 .wheel-dialog{background:#fff;padding:20px;border-radius:12px;max-width:520px;width:95%;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,0.4)}
 .wheel-canvas{width:360px;height:360px;margin:0 auto;position:relative}
-.wheel{width:360px;height:360px;border-radius:50%;overflow:hidden;transition:transform 4s cubic-bezier(.12,.8,.25,1)}
+.wheel{width:360px;height:360px;border-radius:50%;overflow:hidden;transition:transform 4s cubic-bezier(.12,.8,.25,1);box-shadow:0 8px 30px rgba(0,0,0,0.25);border:8px solid #fff}
 .wheel .segment{position:absolute;left:50%;top:50%;transform-origin:0 0;width:50%;height:50%;}
-.wheel-pointer{position:absolute;left:50%;top:0;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:24px solid var(--accent);z-index:10}
+.wheel-pointer{position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-bottom:28px solid #ff6b35;z-index:20;filter:drop-shadow(0 4px 6px rgba(0,0,0,0.2))}
 .wheel-result{margin-top:12px;font-size:18px}
 .btn-small{font-size:14px;padding:6px 10px}
 
@@ -46,6 +46,18 @@ body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica
   .wheel{width:260px;height:260px}
   .wheel-canvas{width:260px;height:260px}
 }
+
+  /* Spin trigger (temu-like) */
+  .spin-trigger{background:linear-gradient(135deg,#ff7a59,#ffb199);color:#fff;border:none;padding:10px 14px;border-radius:999px;font-weight:800;box-shadow:0 6px 18px rgba(255,122,89,0.28);display:inline-flex;align-items:center;gap:8px;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
+  .spin-trigger:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(255,122,89,0.32)}
+  .spin-trigger:active{transform:translateY(0)}
+  .spin-trigger .spark{font-size:18px}
+
+  @keyframes pulse-surface{0%{box-shadow:0 6px 18px rgba(255,122,89,0.12)}50%{box-shadow:0 12px 28px rgba(255,122,89,0.22)}100%{box-shadow:0 6px 18px rgba(255,122,89,0.12)}}
+  .spin-trigger{animation: pulse-surface 3s infinite}
+
+  /* Wheel labels */
+  .wheel .label{position:absolute;left:50%;top:50%;transform-origin:0 0;width:50%;height:50%;display:flex;align-items:flex-end;justify-content:flex-start;padding-left:6px;box-sizing:border-box;font-weight:700;color:#333}
 .nav-toggle{background:none;border:none;font-size:20px;display:none}
 .nav-list{list-style:none; margin:0; padding:0; display:flex; gap:20px}
 .nav-list a{color:#333; text-decoration:none}
