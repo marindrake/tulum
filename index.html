@@ -239,23 +239,26 @@
     document.getElementById('langEN').addEventListener('click', ()=> setLang('en'));
     document.getElementById('langES').addEventListener('click', ()=> setLang('es'));
 
-    await loadTranslations();
-    // if user has saved preference, use it; otherwise detect browser preferred language
-    const saved = localStorage.getItem('tulum_lang');
-    if(saved){
-      setLang(saved);
-    } else {
-      const navLang = (navigator.languages && navigator.languages[0]) || navigator.language || 'fr';
-      let detected = 'fr';
-      if(typeof navLang === 'string'){
-        const nl = navLang.toLowerCase();
-        if(nl.startsWith('fr')) detected = 'fr';
-        else if(nl.startsWith('en')) detected = 'en';
-        else if(nl.startsWith('es')) detected = 'es';
-        else detected = 'fr';
+    (async function(){
+      await loadTranslations();
+      // if user has saved preference, use it; otherwise detect browser preferred language
+      const saved = localStorage.getItem('tulum_lang');
+      if(saved){
+        setLang(saved);
+      } else {
+        const navLang = (navigator.languages && navigator.languages[0]) || navigator.language || 'fr';
+        let detected = 'fr';
+        if(typeof navLang === 'string'){
+          const nl = navLang.toLowerCase();
+          if(nl.startsWith('fr')) detected = 'fr';
+          else if(nl.startsWith('en')) detected = 'en';
+          else if(nl.startsWith('es')) detected = 'es';
+          else detected = 'fr';
+        }
+        setLang(detected);
       }
-      setLang(detected);
-    }
+      await loadMenu();
+    })();
 
     async function loadMenu(){
       try{
@@ -319,7 +322,7 @@
         console.warn('No se pudo cargar menu.json:', e);
       }
     }
-    loadMenu();
+    // loadMenu() is invoked from the async initializer above
   </script>
 </body>
 </html>
