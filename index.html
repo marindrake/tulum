@@ -14,6 +14,11 @@
         <img src="assets/logo.PNG" alt="Tulum logo" class="site-logo">
         <div class="brand-sub">Dessert & Snacks</div>
       </div>
+      <div class="lang-switch" style="display:flex;gap:8px;align-items:center">
+        <button id="langFR" aria-label="Français">FR</button>
+        <button id="langEN" aria-label="English">EN</button>
+        <button id="langES" aria-label="Español">ES</button>
+      </div>
       <nav class="nav" id="nav">
         <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
         <ul class="nav-list" id="navList">
@@ -35,18 +40,55 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/March%C3%A9_Jean-Talon%2C_Montr%C3%A9al_2005-09-04.JPG/960px-March%C3%A9_Jean-Talon%2C_Montr%C3%A9al_2005-09-04.JPG" alt="Jean Talon Market — Tulum" class="hero-image" loading="lazy">
           </picture>
         <img src="assets/logo.PNG" alt="Tulum logo" class="hero-logo">
-        <h1>Postres artesanales con sabor tropical</h1>
-        <p class="lead">Disfruta flanes, chilindrinas y snacks creados con cariño.</p>
+        <h1 data-i18n="hero.title">Postres artesanales con sabor tropical</h1>
+        <p class="lead" data-i18n="hero.lead">Disfruta flanes, chilindrinas y snacks creados con cariño.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#menu">Ver Menú</a>
-          <a class="btn btn-outline" href="#reservas">Reservar</a>
+          <a class="btn btn-primary" id="ctaMenu" href="#menu" data-i18n="hero.cta.menu">Ver Menú</a>
+          <a class="btn btn-outline" id="ctaReserve" href="#reservas" data-i18n="hero.cta.reserve">Reservar</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="featured" class="section">
+      <div class="container">
+        <h2 data-i18n="featured.title">Menú destacado</h2>
+        <div class="menu-grid">
+          <article class="menu-item">
+              <picture>
+                <source srcset="assets/gallery1.webp" type="image/webp">
+                <img class="thumb" src="assets/gallery1.webp" alt="Plato 1">
+              </picture>
+            <h3>Flan de coco</h3>
+            <p class="price">$4.00 CAD</p>
+            <p class="desc">Flan cremoso con toque de coco.</p>
+          </article>
+
+          <article class="menu-item">
+              <picture>
+                <source srcset="assets/gallery2.webp" type="image/webp">
+                <img class="thumb" src="assets/gallery2.webp" alt="Plato 2">
+              </picture>
+            <h3>Copa de frutas</h3>
+            <p class="price">$5.00 CAD</p>
+            <p class="desc">Frutas frescas con crema y crujiente.</p>
+          </article>
+
+          <article class="menu-item">
+              <picture>
+                <source srcset="assets/gallery3.webp" type="image/webp">
+                <img class="thumb" src="assets/gallery3.webp" alt="Plato 3">
+              </picture>
+            <h3>Roll dulce</h3>
+            <p class="price">$3.50 CAD</p>
+            <p class="desc">Roll relleno con toque cítrico.</p>
+          </article>
         </div>
       </div>
     </section>
 
     <section id="menu" class="section">
       <div class="container">
-        <h2>Menú</h2>
+        <h2 data-i18n="menu.title">Menú</h2>
         <div id="menuColumns" class="menu-columns" data-src="data/menu.json"></div>
         <noscript>
           <div class="menu-columns">
@@ -98,13 +140,13 @@
 
     <section id="reservas" class="section alt">
       <div class="container">
-        <h2>Reservas</h2>
-        <form class="form-grid">
-          <label>Nombre<input type="text" placeholder="Tu nombre"></label>
-          <label>Teléfono<input type="tel" placeholder="WhatsApp"></label>
-          <label>Fecha<input type="date"></label>
-          <label>Hora<input type="time"></label>
-          <label>Personas<select><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+        <h2 data-i18n="reservations.title">Reservas</h2>
+        <form class="form-grid" id="reservationForm">
+          <label data-i18n="reservations.name">Nombre<input type="text" placeholder="Tu nombre"></label>
+          <label data-i18n="reservations.phone">Teléfono<input type="tel" placeholder="WhatsApp"></label>
+          <label data-i18n="reservations.date">Fecha<input type="date"></label>
+          <label data-i18n="reservations.time">Hora<input type="time"></label>
+          <label data-i18n="reservations.people">Personas<select><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
           <button class="btn btn-primary" type="submit">Solicitar reserva</button>
         </form>
       </div>
@@ -112,12 +154,12 @@
 
     <section id="galeria" class="section">
       <div class="container">
-        <h2>Galería</h2>
+        <h2 data-i18n="gallery.title">Galería</h2>
         <div class="gallery">
-           <picture><source srcset="assets/gallery1.webp" type="image/webp"><img class="g-item" src="assets/gallery1.svg" alt="Postre 1"></picture>
-           <picture><source srcset="assets/gallery2.webp" type="image/webp"><img class="g-item" src="assets/gallery2.svg" alt="Postre 2"></picture>
-           <picture><source srcset="assets/gallery3.webp" type="image/webp"><img class="g-item" src="assets/gallery3.svg" alt="Postre 3"></picture>
-           <picture><source srcset="assets/gallery4.webp" type="image/webp"><img class="g-item" src="assets/gallery4.svg" alt="Postre 4"></picture>
+           <picture><source srcset="assets/gallery1.webp" type="image/webp"><img class="g-item" src="assets/gallery1.webp" alt="Postre 1" loading="lazy"></picture>
+           <picture><source srcset="assets/gallery2.webp" type="image/webp"><img class="g-item" src="assets/gallery2.webp" alt="Postre 2" loading="lazy"></picture>
+           <picture><source srcset="assets/gallery3.webp" type="image/webp"><img class="g-item" src="assets/gallery3.webp" alt="Postre 3" loading="lazy"></picture>
+           <picture><source srcset="assets/gallery4.webp" type="image/webp"><img class="g-item" src="assets/gallery4.webp" alt="Postre 4" loading="lazy"></picture>
         </div>
       </div>
     </section>
@@ -125,11 +167,11 @@
     <section id="contacto" class="section alt">
         <div class="container contact-grid">
         <div>
-          <h2>Contacto & Ubicación</h2>
-          <p>Dirección: 7070 Henri Julien Ave, Montreal, Quebec H2S 3A3, Canada</p>
-          <p>Estamos ubicados en el <strong>Jean Talon Market</strong>.</p>
-          <p>Horario: 8:00 AM – 6:00 PM — Todos los días</p>
-          <p>Teléfono: +1 514-937-7754</p>
+          <h2 data-i18n="contact.title">Contacto & Ubicación</h2>
+          <p data-i18n="contact.address">Dirección: 7070 Henri Julien Ave, Montreal, Quebec H2S 3A3, Canada</p>
+          <p data-i18n="contact.note">Estamos ubicados en el <strong>Jean Talon Market</strong>.</p>
+          <p data-i18n="contact.hours">Horario: 8:00 AM – 6:00 PM — Todos los días</p>
+          <p data-i18n="contact.phone">Teléfono: +1 514-937-7754</p>
         </div>
         <div class="map-placeholder">
           <div style="text-align:center">
@@ -143,7 +185,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 Tulum Dessert & Snacks — Hecho con amor</p>
+      <p data-i18n="footer">© 2026 Tulum Dessert & Snacks — Hecho con amor</p>
     </div>
   </footer>
 
@@ -158,7 +200,38 @@
     // Simple form prevent default for prototype
     document.querySelectorAll('form').forEach(f => f.addEventListener('submit', e => { e.preventDefault(); alert('Reserva enviada (prototipo)'); }));
 
-    // Load menu dynamically from JSON
+    // Load translations and menu dynamically from JSON
+    let TRANSLATIONS = null;
+    let LANG = localStorage.getItem('tulum_lang') || 'fr';
+
+    async function loadTranslations(){
+      try{
+        const r = await fetch('data/translations.json');
+        TRANSLATIONS = await r.json();
+      }catch(e){
+        console.warn('Could not load translations:', e);
+      }
+    }
+
+    function applyTranslations(){
+      if(!TRANSLATIONS) return;
+      const t = TRANSLATIONS[LANG] || TRANSLATIONS['fr'];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if(key && t[key]) el.innerHTML = t[key];
+      });
+      // update nav links specially (they also have data-i18n)
+    }
+
+    function setLang(l){ LANG = l; localStorage.setItem('tulum_lang', l); applyTranslations(); }
+
+    document.getElementById('langFR').addEventListener('click', ()=> setLang('fr'));
+    document.getElementById('langEN').addEventListener('click', ()=> setLang('en'));
+    document.getElementById('langES').addEventListener('click', ()=> setLang('es'));
+
+    await loadTranslations();
+    applyTranslations();
+
     async function loadMenu(){
       try{
         const resp = await fetch('data/menu.json');
@@ -167,11 +240,13 @@
         const container = document.getElementById('menuColumns');
         if(!container) return;
         container.innerHTML = '';
-        data.categories.forEach(cat => {
+        // use translated category titles if available
+        const catTitles = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['menu.categories']) || null;
+        data.categories.forEach((cat, idx) => {
           const col = document.createElement('div');
           col.className = 'menu-col';
           const h3 = document.createElement('h3');
-          h3.textContent = cat.title;
+          h3.textContent = (catTitles && catTitles[idx]) ? catTitles[idx] : cat.title;
           col.appendChild(h3);
           const ul = document.createElement('ul');
           cat.items.forEach(it => {
