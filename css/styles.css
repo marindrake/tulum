@@ -37,6 +37,17 @@ img{max-width:100%;height:auto}
 .section.alt{background:#fff}
 h2{color:#8a2b10;margin:0 0 18px}
 
+.menu-columns{display:flex;gap:20px}
+.menu-col{flex:1;background:#fff;border-radius:10px;padding:14px;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+.menu-col h3{margin-top:0;color:#b94b23}
+.menu-col ul{padding-left:18px;margin:8px 0;color:var(--muted)}
+.menu-col li{margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+.menu-col .item{flex:1}
+.menu-col .price{white-space:nowrap;color:var(--accent-2);font-weight:700;margin-left:12px}
+
+/* Thumbnail shown next to some menu items */
+.menu-thumb{width:64px;height:64px;border-radius:8px;object-fit:cover;margin-right:12px;flex:0 0 64px}
+
 .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .menu-item{background:#fff;border-radius:10px;padding:14px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
 .thumb{height:140px;border-radius:8px;background:#f6f0ea;margin-bottom:12px;display:block;width:100%;object-fit:cover}
@@ -70,6 +81,7 @@ h2{color:#8a2b10;margin:0 0 18px}
   .menu-grid{grid-template-columns:1fr}
   .gallery{grid-template-columns:repeat(2,1fr)}
   .form-grid{grid-template-columns:1fr}
+  .menu-thumb{display:none}
   .hero h1{font-size:24px}
   .hero-logo{width:120px}
 }
