@@ -1,0 +1,7 @@
+diffusers>=0.22.0
+transformers>=4.30.0
+accelerate
+torch
+safetensors
+Pillow
+requests

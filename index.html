@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tulum Dessert & Snacks — Prototipo</title>
+  <meta name="description" content="Tulum Dessert & Snacks - postres y snacks artesanales">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="assets/logo.PNG" alt="Tulum logo" class="site-logo">
+        <div class="brand-sub">Dessert & Snacks</div>
+      </div>
+      <nav class="nav" id="nav">
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
+        <ul class="nav-list" id="navList">
+          <li><a href="#home">Inicio</a></li>
+          <li><a href="#menu">Menú</a></li>
+          <li><a href="#reservas">Reservas</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container hero-inner">
+          <picture>
+            <source srcset="assets/hero.webp" type="image/webp">
+            <img src="assets/hero-dessert.svg" alt="Hero Tulum" class="hero-image">
+          </picture>
+        <img src="assets/logo.PNG" alt="Tulum logo" class="hero-logo">
+        <h1>Postres artesanales con sabor tropical</h1>
+        <p class="lead">Disfruta flanes, chilindrinas y snacks creados con cariño.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#menu">Ver Menú</a>
+          <a class="btn btn-outline" href="#reservas">Reservar</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" class="section">
+      <div class="container">
+        <h2>Menú destacado</h2>
+        <div class="menu-grid">
+          <article class="menu-item">
+              <picture>
+                <source srcset="assets/thumb-flan.webp" type="image/webp">
+                <img class="thumb" src="assets/thumb-flan.svg" alt="Flan de coco">
+              </picture>
+            <h3>Flan de coco</h3>
+            <p class="price">$55 MXN</p>
+            <p class="desc">Flan cremoso con toque de coco y caramelo.</p>
+          </article>
+          <article class="menu-item">
+              <picture>
+                <source srcset="assets/thumb-trifle.webp" type="image/webp">
+                <img class="thumb" src="assets/thumb-trifle.svg" alt="Copa de frutas y crema">
+              </picture>
+            <h3>Copa de frutas y crema</h3>
+            <p class="price">$65 MXN</p>
+            <p class="desc">Fresas frescas, crema batida y crumble.</p>
+          </article>
+          <article class="menu-item">
+              <picture>
+                <source srcset="assets/thumb-roll.webp" type="image/webp">
+                <img class="thumb" src="assets/thumb-roll.svg" alt="Roll dulce relleno">
+              </picture>
+            <h3>Roll dulce relleno</h3>
+            <p class="price">$48 MXN</p>
+            <p class="desc">Masa dorada con relleno de cajeta y naranja.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="reservas" class="section alt">
+      <div class="container">
+        <h2>Reservas</h2>
+        <form class="form-grid">
+          <label>Nombre<input type="text" placeholder="Tu nombre"></label>
+          <label>Teléfono<input type="tel" placeholder="WhatsApp"></label>
+          <label>Fecha<input type="date"></label>
+          <label>Hora<input type="time"></label>
+          <label>Personas<select><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+          <button class="btn btn-primary" type="submit">Solicitar reserva</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="galeria" class="section">
+      <div class="container">
+        <h2>Galería</h2>
+        <div class="gallery">
+           <picture><source srcset="assets/gallery1.webp" type="image/webp"><img class="g-item" src="assets/gallery1.svg" alt="Postre 1"></picture>
+           <picture><source srcset="assets/gallery2.webp" type="image/webp"><img class="g-item" src="assets/gallery2.svg" alt="Postre 2"></picture>
+           <picture><source srcset="assets/gallery3.webp" type="image/webp"><img class="g-item" src="assets/gallery3.svg" alt="Postre 3"></picture>
+           <picture><source srcset="assets/gallery4.webp" type="image/webp"><img class="g-item" src="assets/gallery4.svg" alt="Postre 4"></picture>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="section alt">
+        <div class="container contact-grid">
+        <div>
+          <h2>Contacto & Ubicación</h2>
+          <p>Dirección: Calle Principal 123, Tulum</p>
+          <p>Horario: Lun-Dom 10:00–22:00</p>
+          <p>Teléfono / WhatsApp: +52 1 998 000 0000</p>
+        </div>
+        <div class="map-placeholder">
+          <div style="text-align:center">
+            <p style="margin:0 0 8px">Escanea para guardar contacto</p>
+            <img src="assets/qr_contact.webp" alt="QR contacto" width="200" height="200" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Tulum Dessert & Snacks — Hecho con amor</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5219980000000" class="whatsapp-fab" aria-label="Enviar WhatsApp">💬</a>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navList = document.getElementById('navList');
+    navToggle.addEventListener('click', () => {
+      navList.classList.toggle('open');
+    });
+    // Simple form prevent default for prototype
+    document.querySelectorAll('form').forEach(f => f.addEventListener('submit', e => { e.preventDefault(); alert('Reserva enviada (prototipo)'); }));
+  </script>
+</body>
+</html>
