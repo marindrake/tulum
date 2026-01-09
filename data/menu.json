@@ -3,42 +3,42 @@
     {
       "title": "Platos principales (precios en CAD)",
       "items": [
-        { "name": "Arroz y frijol (por litro)", "price": "$5.00 CAD" },
-        { "name": "Gorditas rellenas de papa", "price": "$4.50 CAD" },
-        { "name": "Flautas (papa / pollo)", "price": "$6.00 CAD" },
-        { "name": "Chilaquiles", "price": "$11.00 CAD" },
-        { "name": "Tostadas (pollo / papa)", "price": "$7.00 CAD" },
-        { "name": "Guacamole", "price": "$6.00 CAD" },
-        { "name": "Papas a la francesa", "price": "$4.00 CAD" },
-        { "name": "Banderilla", "price": "$3.00 CAD" },
-        { "name": "Nachos", "price": "$9.00 CAD" },
-        { "name": "Frijoles (litro / medio litro)", "price": "$4.00 / $2.50 CAD" },
-        { "name": "Torta de chilaquiles", "price": "$8.00 CAD" },
-        { "name": "Torta de pollo", "price": "$8.00 CAD" }
+        { "name": { "es": "Arroz y frijol (por litro)", "en": "Rice and beans (per liter)", "fr": "Riz et haricots (par litre)" }, "price": "$5.00 CAD" },
+        { "name": { "es": "Gorditas rellenas de papa", "en": "Gorditas stuffed with potato", "fr": "Gorditas farcies aux pommes de terre" }, "price": "$4.50 CAD" },
+        { "name": { "es": "Flautas (papa / pollo)", "en": "Flautas (potato / chicken)", "fr": "Flautas (pommes de terre / poulet)" }, "price": "$6.00 CAD" },
+        { "name": { "es": "Chilaquiles", "en": "Chilaquiles", "fr": "Chilaquiles" }, "price": "$11.00 CAD" },
+        { "name": { "es": "Tostadas (pollo / papa)", "en": "Tostadas (chicken / potato)", "fr": "Tostadas (poulet / pommes de terre)" }, "price": "$7.00 CAD" },
+        { "name": { "es": "Guacamole", "en": "Guacamole", "fr": "Guacamole" }, "price": "$6.00 CAD" },
+        { "name": { "es": "Papas a la francesa", "en": "French fries", "fr": "Frites" }, "price": "$4.00 CAD" },
+        { "name": { "es": "Banderilla", "en": "Corn dog (Banderilla)", "fr": "Banderilla (saucisse panée)" }, "price": "$3.00 CAD" },
+        { "name": { "es": "Nachos", "en": "Nachos", "fr": "Nachos" }, "price": "$9.00 CAD" },
+        { "name": { "es": "Frijoles (litro / medio litro)", "en": "Beans (liter / half)", "fr": "Haricots (litre / demi-litre)" }, "price": "$4.00 / $2.50 CAD" },
+        { "name": { "es": "Torta de chilaquiles", "en": "Chilaquiles sandwich", "fr": "Sandwich de chilaquiles" }, "price": "$8.00 CAD" },
+        { "name": { "es": "Torta de pollo", "en": "Chicken sandwich", "fr": "Sandwich au poulet" }, "price": "$8.00 CAD" }
       ]
     },
     {
       "title": "Snacks y postres (precios en CAD)",
       "items": [
-        { "name": "Papas fritas (bolsa)", "price": "$2.50 CAD" },
-        { "name": "Chicharrines / palomitas (bolsa)", "price": "$2.50 CAD" },
-        { "name": "Totopos (bolsa)", "price": "$3.00 CAD" },
-        { "name": "Gelatina", "price": "$3.00 CAD" },
-        { "name": "Fresas con crema", "price": "$5.00 CAD" },
-        { "name": "Mini hotcakes con topping", "price": "$4.00 CAD", "thumb": "assets/thumb-trifle.webp" },
-        { "name": "Plátanos fritos", "price": "$3.50 CAD" },
-        { "name": "Pasteles / Carlota", "price": "$4.50 CAD" },
-        { "name": "Churros", "price": "$2.50 CAD", "thumb": "assets/thumb-roll.webp" },
-        { "name": "Bolitas con topping", "price": "$3.00 CAD" },
-        { "name": "Waffles", "price": "$6.00 CAD" },
-        { "name": "Flan horneado", "price": "$4.00 CAD", "thumb": "assets/thumb-flan.webp" }
+        { "name": { "es": "Papas fritas (bolsa)", "en": "Potato chips (bag)", "fr": "Chips (sachet)" }, "price": "$2.50 CAD" },
+        { "name": { "es": "Chicharrines / palomitas (bolsa)", "en": "Pork rinds / popcorn (bag)", "fr": "Chicharrines / pop-corn (sachet)" }, "price": "$2.50 CAD" },
+        { "name": { "es": "Totopos (bolsa)", "en": "Tortilla chips (bag)", "fr": "Totopos (sachet)" }, "price": "$3.00 CAD" },
+        { "name": { "es": "Gelatina", "en": "Jelly", "fr": "Gelée" }, "price": "$3.00 CAD" },
+        { "name": { "es": "Fresas con crema", "en": "Strawberries with cream", "fr": "Fraises à la crème" }, "price": "$5.00 CAD" },
+        { "name": { "es": "Mini hotcakes con topping", "en": "Mini pancakes with topping", "fr": "Mini pancakes avec garniture" }, "price": "$4.00 CAD", "thumb": "assets/thumb-trifle.webp" },
+        { "name": { "es": "Plátanos fritos", "en": "Fried plantains", "fr": "Bananes frites" }, "price": "$3.50 CAD" },
+        { "name": { "es": "Pasteles / Carlota", "en": "Cakes / Carlota", "fr": "Gâteaux / Carlota" }, "price": "$4.50 CAD" },
+        { "name": { "es": "Churros", "en": "Churros", "fr": "Churros" }, "price": "$2.50 CAD", "thumb": "assets/thumb-roll.webp" },
+        { "name": { "es": "Bolitas con topping", "en": "Topped balls", "fr": "Boules garnies" }, "price": "$3.00 CAD" },
+        { "name": { "es": "Waffles", "en": "Waffles", "fr": "Gaufres" }, "price": "$6.00 CAD" },
+        { "name": { "es": "Flan horneado", "en": "Baked flan", "fr": "Flan cuit" }, "price": "$4.00 CAD", "thumb": "assets/thumb-flan.webp" }
       ]
     },
     {
       "title": "Bebidas (precios en CAD)",
       "items": [
-        { "name": "Aguas frescas (Jamaica, Horchata, Fresa)", "price": "$3.00 CAD" },
-        { "name": "Refrescos de lata", "price": "$2.50 CAD" }
+        { "name": { "es": "Aguas frescas (Jamaica, Horchata, Fresa)", "en": "Aguas frescas (Hibiscus, Horchata, Strawberry)", "fr": "Aguas frescas (hibiscus, horchata, fraise)" }, "price": "$3.00 CAD" },
+        { "name": { "es": "Refrescos de lata", "en": "Canned sodas", "fr": "Sodas en canette" }, "price": "$2.50 CAD" }
       ]
     }
   ]

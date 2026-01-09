@@ -15,9 +15,9 @@
         <div class="brand-sub">Dessert & Snacks</div>
       </div>
       <div class="lang-switch" aria-hidden="false">
-        <button id="langFR" aria-label="Français"><span class="flag">🇫🇷</span><span class="code">FR</span></button>
-        <button id="langEN" aria-label="English"><span class="flag">🇬🇧</span><span class="code">EN</span></button>
-        <button id="langES" aria-label="Español"><span class="flag">🇪🇸</span><span class="code">ES</span></button>
+        <button id="langFR" aria-label="Français">FR</button>
+        <button id="langEN" aria-label="English">EN</button>
+        <button id="langES" aria-label="Español">ES</button>
       </div>
       <nav class="nav" id="nav">
         <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
@@ -240,11 +240,21 @@
     document.getElementById('langES').addEventListener('click', ()=> setLang('es'));
 
     await loadTranslations();
-    // ensure default language (French) is applied on load
-    if(!localStorage.getItem('tulum_lang')){
-      setLang('fr');
+    // if user has saved preference, use it; otherwise detect browser preferred language
+    const saved = localStorage.getItem('tulum_lang');
+    if(saved){
+      setLang(saved);
     } else {
-      setLang(localStorage.getItem('tulum_lang'));
+      const navLang = (navigator.languages && navigator.languages[0]) || navigator.language || 'fr';
+      let detected = 'fr';
+      if(typeof navLang === 'string'){
+        const nl = navLang.toLowerCase();
+        if(nl.startsWith('fr')) detected = 'fr';
+        else if(nl.startsWith('en')) detected = 'en';
+        else if(nl.startsWith('es')) detected = 'es';
+        else detected = 'fr';
+      }
+      setLang(detected);
     }
 
     async function loadMenu(){
@@ -257,11 +267,18 @@
         container.innerHTML = '';
         // use translated category titles if available
         const catTitles = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['menu.categories']) || null;
+
+        const getText = (field) => {
+          if(!field) return '';
+          if(typeof field === 'string') return field;
+          return field[LANG] || field.fr || field.en || field.es || Object.values(field)[0] || '';
+        };
+
         data.categories.forEach((cat, idx) => {
           const col = document.createElement('div');
           col.className = 'menu-col';
           const h3 = document.createElement('h3');
-          h3.textContent = (catTitles && catTitles[idx]) ? catTitles[idx] : cat.title;
+          h3.textContent = (catTitles && catTitles[idx]) ? catTitles[idx] : getText(cat.title);
           col.appendChild(h3);
           const ul = document.createElement('ul');
           cat.items.forEach(it => {
@@ -269,23 +286,29 @@
             if(it.thumb){
               const img = document.createElement('img');
               img.className = 'menu-thumb';
-              // derive responsive variants from base filename (remove extension)
               const base = it.thumb.replace(/\.webp$/i, '');
               const variants = [320,160,64];
               img.srcset = variants.map(w => `${base}-${w}.webp ${w}w`).join(', ');
               img.sizes = '(max-width:640px) 64px, 160px';
               img.src = `${base}-160.webp`;
-              img.alt = it.name;
+              img.alt = getText(it.name);
               img.loading = 'lazy';
               li.appendChild(img);
             }
             const spanItem = document.createElement('span');
             spanItem.className = 'item';
-            spanItem.textContent = it.name;
+            spanItem.textContent = getText(it.name);
             const spanPrice = document.createElement('span');
             spanPrice.className = 'price';
             spanPrice.textContent = it.price;
             li.appendChild(spanItem);
+            // optional description
+            if(it.desc){
+              const pdesc = document.createElement('p');
+              pdesc.className = 'desc';
+              pdesc.textContent = getText(it.desc);
+              li.appendChild(pdesc);
+            }
             li.appendChild(spanPrice);
             ul.appendChild(li);
           });
