@@ -179,7 +179,12 @@
             if(it.thumb){
               const img = document.createElement('img');
               img.className = 'menu-thumb';
-              img.src = it.thumb;
+              // derive responsive variants from base filename (remove extension)
+              const base = it.thumb.replace(/\.webp$/i, '');
+              const variants = [320,160,64];
+              img.srcset = variants.map(w => `${base}-${w}.webp ${w}w`).join(', ');
+              img.sizes = '(max-width:640px) 64px, 160px';
+              img.src = `${base}-160.webp`;
               img.alt = it.name;
               img.loading = 'lazy';
               li.appendChild(img);
