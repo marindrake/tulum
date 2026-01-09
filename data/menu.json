@@ -1,0 +1,45 @@
+{
+  "categories": [
+    {
+      "title": "Platos principales (precios en CAD)",
+      "items": [
+        { "name": "Arroz y frijol (por litro)", "price": "$5.00 CAD" },
+        { "name": "Gorditas rellenas de papa", "price": "$4.50 CAD" },
+        { "name": "Flautas (papa / pollo)", "price": "$6.00 CAD" },
+        { "name": "Chilaquiles", "price": "$11.00 CAD" },
+        { "name": "Tostadas (pollo / papa)", "price": "$7.00 CAD" },
+        { "name": "Guacamole", "price": "$6.00 CAD" },
+        { "name": "Papas a la francesa", "price": "$4.00 CAD" },
+        { "name": "Banderilla", "price": "$3.00 CAD" },
+        { "name": "Nachos", "price": "$9.00 CAD" },
+        { "name": "Frijoles (litro / medio litro)", "price": "$4.00 / $2.50 CAD" },
+        { "name": "Torta de chilaquiles", "price": "$8.00 CAD" },
+        { "name": "Torta de pollo", "price": "$8.00 CAD" }
+      ]
+    },
+    {
+      "title": "Snacks y postres (precios en CAD)",
+      "items": [
+        { "name": "Papas fritas (bolsa)", "price": "$2.50 CAD" },
+        { "name": "Chicharrines / palomitas (bolsa)", "price": "$2.50 CAD" },
+        { "name": "Totopos (bolsa)", "price": "$3.00 CAD" },
+        { "name": "Gelatina", "price": "$3.00 CAD" },
+        { "name": "Fresas con crema", "price": "$5.00 CAD" },
+        { "name": "Mini hotcakes con topping", "price": "$4.00 CAD", "thumb": "assets/thumb-trifle.webp" },
+        { "name": "Plátanos fritos", "price": "$3.50 CAD" },
+        { "name": "Pasteles / Carlota", "price": "$4.50 CAD" },
+        { "name": "Churros", "price": "$2.50 CAD", "thumb": "assets/thumb-roll.webp" },
+        { "name": "Bolitas con topping", "price": "$3.00 CAD" },
+        { "name": "Waffles", "price": "$6.00 CAD" },
+        { "name": "Flan horneado", "price": "$4.00 CAD", "thumb": "assets/thumb-flan.webp" }
+      ]
+    },
+    {
+      "title": "Bebidas (precios en CAD)",
+      "items": [
+        { "name": "Aguas frescas (Jamaica, Horchata, Fresa)", "price": "$3.00 CAD" },
+        { "name": "Refrescos de lata", "price": "$2.50 CAD" }
+      ]
+    }
+  ]
+}

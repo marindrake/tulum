@@ -47,51 +47,52 @@
     <section id="menu" class="section">
       <div class="container">
         <h2>Menú</h2>
-        <div class="menu-columns">
-          <div class="menu-col">
-            <h3>Platos principales (precios en CAD)</h3>
-            <ul>
-              <li><span class="item">Arroz y frijol (por litro)</span><span class="price">$5.00 CAD</span></li>
-              <li><span class="item">Gorditas rellenas de papa</span><span class="price">$4.50 CAD</span></li>
-              <li><span class="item">Flautas (papa / pollo)</span><span class="price">$6.00 CAD</span></li>
-              <li><span class="item">Chilaquiles</span><span class="price">$11.00 CAD</span></li>
-              <li><span class="item">Tostadas (pollo / papa)</span><span class="price">$7.00 CAD</span></li>
-              <li><span class="item">Guacamole</span><span class="price">$6.00 CAD</span></li>
-              <li><span class="item">Papas a la francesa</span><span class="price">$4.00 CAD</span></li>
-              <li><span class="item">Banderilla</span><span class="price">$3.00 CAD</span></li>
-              <li><span class="item">Nachos</span><span class="price">$9.00 CAD</span></li>
-              <li><span class="item">Frijoles (litro / medio litro)</span><span class="price">$4.00 / $2.50 CAD</span></li>
-              <li><span class="item">Torta de chilaquiles</span><span class="price">$8.00 CAD</span></li>
-              <li><span class="item">Torta de pollo</span><span class="price">$8.00 CAD</span></li>
-            </ul>
+        <div id="menuColumns" class="menu-columns" data-src="data/menu.json"></div>
+        <noscript>
+          <div class="menu-columns">
+            <div class="menu-col">
+              <h3>Platos principales (precios en CAD)</h3>
+              <ul>
+                <li><span class="item">Arroz y frijol (por litro)</span><span class="price">$5.00 CAD</span></li>
+                <li><span class="item">Gorditas rellenas de papa</span><span class="price">$4.50 CAD</span></li>
+                <li><span class="item">Flautas (papa / pollo)</span><span class="price">$6.00 CAD</span></li>
+                <li><span class="item">Chilaquiles</span><span class="price">$11.00 CAD</span></li>
+                <li><span class="item">Tostadas (pollo / papa)</span><span class="price">$7.00 CAD</span></li>
+                <li><span class="item">Guacamole</span><span class="price">$6.00 CAD</span></li>
+                <li><span class="item">Papas a la francesa</span><span class="price">$4.00 CAD</span></li>
+                <li><span class="item">Banderilla</span><span class="price">$3.00 CAD</span></li>
+                <li><span class="item">Nachos</span><span class="price">$9.00 CAD</span></li>
+                <li><span class="item">Frijoles (litro / medio litro)</span><span class="price">$4.00 / $2.50 CAD</span></li>
+                <li><span class="item">Torta de chilaquiles</span><span class="price">$8.00 CAD</span></li>
+                <li><span class="item">Torta de pollo</span><span class="price">$8.00 CAD</span></li>
+              </ul>
+            </div>
+            <div class="menu-col">
+              <h3>Snacks y postres (precios en CAD)</h3>
+              <ul>
+                <li><span class="item">Papas fritas (bolsa)</span><span class="price">$2.50 CAD</span></li>
+                <li><span class="item">Chicharrines / palomitas (bolsa)</span><span class="price">$2.50 CAD</span></li>
+                <li><span class="item">Totopos (bolsa)</span><span class="price">$3.00 CAD</span></li>
+                <li><span class="item">Gelatina</span><span class="price">$3.00 CAD</span></li>
+                <li><span class="item">Fresas con crema</span><span class="price">$5.00 CAD</span></li>
+                <li><span class="item">Mini hotcakes con topping</span><span class="price">$4.00 CAD</span></li>
+                <li><span class="item">Plátanos fritos</span><span class="price">$3.50 CAD</span></li>
+                <li><span class="item">Pasteles / Carlota</span><span class="price">$4.50 CAD</span></li>
+                <li><span class="item">Churros</span><span class="price">$2.50 CAD</span></li>
+                <li><span class="item">Bolitas con topping</span><span class="price">$3.00 CAD</span></li>
+                <li><span class="item">Waffles</span><span class="price">$6.00 CAD</span></li>
+                <li><span class="item">Flan horneado</span><span class="price">$4.00 CAD</span></li>
+              </ul>
+            </div>
+            <div class="menu-col">
+              <h3>Bebidas (precios en CAD)</h3>
+              <ul>
+                <li><span class="item">Aguas frescas (Jamaica, Horchata, Fresa)</span><span class="price">$3.00 CAD</span></li>
+                <li><span class="item">Refrescos de lata</span><span class="price">$2.50 CAD</span></li>
+              </ul>
+            </div>
           </div>
-
-          <div class="menu-col">
-            <h3>Snacks y postres (precios en CAD)</h3>
-            <ul>
-              <li><span class="item">Papas fritas (bolsa)</span><span class="price">$2.50 CAD</span></li>
-              <li><span class="item">Chicharrines / palomitas (bolsa)</span><span class="price">$2.50 CAD</span></li>
-              <li><span class="item">Totopos (bolsa)</span><span class="price">$3.00 CAD</span></li>
-              <li><span class="item">Gelatina</span><span class="price">$3.00 CAD</span></li>
-              <li><span class="item">Fresas con crema</span><span class="price">$5.00 CAD</span></li>
-              <li><img class="menu-thumb" src="assets/thumb-trifle.webp" alt="Mini hotcakes"><span class="item">Mini hotcakes con topping</span><span class="price">$4.00 CAD</span></li>
-              <li><span class="item">Plátanos fritos</span><span class="price">$3.50 CAD</span></li>
-              <li><span class="item">Pasteles / Carlota</span><span class="price">$4.50 CAD</span></li>
-              <li><img class="menu-thumb" src="assets/thumb-roll.webp" alt="Churros"><span class="item">Churros</span><span class="price">$2.50 CAD</span></li>
-              <li><span class="item">Bolitas con topping</span><span class="price">$3.00 CAD</span></li>
-              <li><span class="item">Waffles</span><span class="price">$6.00 CAD</span></li>
-              <li><img class="menu-thumb" src="assets/thumb-flan.webp" alt="Flan horneado"><span class="item">Flan horneado</span><span class="price">$4.00 CAD</span></li>
-            </ul>
-          </div>
-
-          <div class="menu-col">
-            <h3>Bebidas (precios en CAD)</h3>
-            <ul>
-              <li><span class="item">Aguas frescas (Jamaica, Horchata, Fresa)</span><span class="price">$3.00 CAD</span></li>
-              <li><span class="item">Refrescos de lata</span><span class="price">$2.50 CAD</span></li>
-            </ul>
-          </div>
-        </div>
+        </noscript>
       </div>
     </section>
 
@@ -156,6 +157,51 @@
     });
     // Simple form prevent default for prototype
     document.querySelectorAll('form').forEach(f => f.addEventListener('submit', e => { e.preventDefault(); alert('Reserva enviada (prototipo)'); }));
+
+    // Load menu dynamically from JSON
+    async function loadMenu(){
+      try{
+        const resp = await fetch('data/menu.json');
+        if(!resp.ok) throw new Error('Network response not ok');
+        const data = await resp.json();
+        const container = document.getElementById('menuColumns');
+        if(!container) return;
+        container.innerHTML = '';
+        data.categories.forEach(cat => {
+          const col = document.createElement('div');
+          col.className = 'menu-col';
+          const h3 = document.createElement('h3');
+          h3.textContent = cat.title;
+          col.appendChild(h3);
+          const ul = document.createElement('ul');
+          cat.items.forEach(it => {
+            const li = document.createElement('li');
+            if(it.thumb){
+              const img = document.createElement('img');
+              img.className = 'menu-thumb';
+              img.src = it.thumb;
+              img.alt = it.name;
+              img.loading = 'lazy';
+              li.appendChild(img);
+            }
+            const spanItem = document.createElement('span');
+            spanItem.className = 'item';
+            spanItem.textContent = it.name;
+            const spanPrice = document.createElement('span');
+            spanPrice.className = 'price';
+            spanPrice.textContent = it.price;
+            li.appendChild(spanItem);
+            li.appendChild(spanPrice);
+            ul.appendChild(li);
+          });
+          col.appendChild(ul);
+          container.appendChild(col);
+        });
+      }catch(e){
+        console.warn('No se pudo cargar menu.json:', e);
+      }
+    }
+    loadMenu();
   </script>
 </body>
 </html>
