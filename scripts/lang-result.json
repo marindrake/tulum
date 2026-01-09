@@ -1,0 +1,36 @@
+{
+  "url": "http://localhost:8000/",
+  "initial_lang": "en",
+  "before": [
+    "Rice and beans (per liter)",
+    "Gorditas stuffed with potato",
+    "Flautas (potato / chicken)",
+    "Chilaquiles",
+    "Tostadas (chicken / potato)",
+    "Guacamole"
+  ],
+  "en": [
+    "Rice and beans (per liter)",
+    "Gorditas stuffed with potato",
+    "Flautas (potato / chicken)",
+    "Chilaquiles",
+    "Tostadas (chicken / potato)",
+    "Guacamole"
+  ],
+  "fr": [
+    "Riz et haricots (par litre)",
+    "Gorditas farcies aux pommes de terre",
+    "Flautas (pommes de terre / poulet)",
+    "Chilaquiles",
+    "Tostadas (poulet / pommes de terre)",
+    "Guacamole"
+  ],
+  "es": [
+    "Arroz y frijol (por litro)",
+    "Gorditas rellenas de papa",
+    "Flautas (papa / pollo)",
+    "Chilaquiles",
+    "Tostadas (pollo / papa)",
+    "Guacamole"
+  ]
+}
