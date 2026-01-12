@@ -98,6 +98,14 @@ h2{color:#8a2b10;margin:0 0 18px}
 .menu-col .price{white-space:nowrap;color:var(--accent-2);font-weight:700;margin-left:12px}
 
 /* Thumbnail shown next to some menu items */
+/* Lightbox / image modal */
+.image-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);z-index:1200}
+.image-modal.open{display:flex}
+.image-dialog{background:#000;border-radius:10px;max-width:min(92vw,900px);max-height:min(92vh,900px);padding:8px;position:relative}
+.image-dialog img{display:block;max-width:85vw;max-height:85vh;border-radius:6px}
+.image-close{position:absolute;right:8px;top:8px;background:#fff;border:none;border-radius:6px;padding:6px 8px;cursor:pointer;font-weight:700}
+.view-link{text-decoration:none;color:inherit}
+.name-link{border-bottom:1px dotted #ccc}
 .menu-thumb{width:64px;height:64px;border-radius:8px;object-fit:cover;margin-right:12px;flex:0 0 64px}
 
 .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}

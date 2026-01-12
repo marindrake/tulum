@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Platillo — Tulum</title>
+  <meta name="description" content="Detalle de platillo - Tulum Dessert & Snacks">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    .dish-hero{padding:28px 0;background:linear-gradient(180deg,#fffaf6,#fff3e8)}
+    .dish-card{background:#fff;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,0.06);padding:14px}
+    .dish-img{width:100%;height:auto;border-radius:10px}
+    .dish-meta{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+    .back-link{display:inline-block;margin-top:12px}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="../assets/logo.PNG" alt="Tulum logo" class="site-logo">
+        <div class="brand-sub">Dessert & Snacks</div>
+      </div>
+      <nav class="nav"><a class="back-link" href="../index.html#menu">← Volver al menú</a></nav>
+    </div>
+  </header>
+  <main class="dish-hero">
+    <div class="container">
+      <div class="dish-card">
+        <h1 id="dishTitle">Platillo</h1>
+        <img id="dishImage" class="dish-img" alt="Imagen del platillo">
+        <div class="dish-meta">
+          <p id="dishDesc" class="lead"></p>
+          <p id="dishPrice" class="price"></p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Tulum Dessert & Snacks — Hecho con amor</p>
+    </div>
+  </footer>
+  <script>
+    const LANG = localStorage.getItem('tulum_lang') || 'fr';
+    const slugify = (s) => (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+    const generateAIImage = (title) => {
+      const w = 1600, h = 1067;
+      const gradId = 'g'+Math.random().toString(36).slice(2);
+      const safe = (title||'Platillo').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const svg = `<?xml version="1.0" encoding="UTF-8"?>
+      <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <linearGradient id="${gradId}" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffedd5"/>
+            <stop offset="50%" stop-color="#ffe4e6"/>
+            <stop offset="100%" stop-color="#e0f2fe"/>
+          </linearGradient>
+          <filter id="grain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" stitchTiles="stitch"/>
+            <feColorMatrix type="saturate" values="0"/>
+            <feComponentTransfer>
+              <feFuncA type="table" tableValues="0 0.06"/>
+            </feComponentTransfer>
+          </filter>
+        </defs>
+        <rect x="0" y="0" width="100%" height="100%" fill="url(#${gradId})"/>
+        <rect x="0" y="0" width="100%" height="100%" fill="#000" opacity="0.12" filter="url(#grain)"/>
+        <g transform="translate(${w/2}, ${h/2})">
+          <circle r="380" fill="#fff" opacity="0.22"/>
+          <circle r="260" fill="#fff" opacity="0.18"/>
+        </g>
+        <text x="50%" y="50%" font-family="Poppins, Arial, sans-serif" font-size="56" font-weight="800" text-anchor="middle" fill="#121212">${safe}</text>
+        <text x="50%" y="50%" dy="54" font-family="Poppins, Arial, sans-serif" font-size="22" text-anchor="middle" fill="#444">Imagen generada (prototipo)</text>
+      </svg>`;
+      return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+    };
+
+    function getParam(name){
+      const u = new URL(window.location.href);
+      return u.searchParams.get(name);
+    }
+
+    async function init(){
+      const slug = getParam('slug');
+      const r = await fetch('../data/menu.json');
+      const data = await r.json();
+      let found = null;
+      for(const cat of data.categories){
+        for(const it of cat.items){
+          const n = (typeof it.name === 'string') ? it.name : (it.name[LANG] || it.name.es || it.name.en || it.name.fr);
+          if(slugify(n) === slug){ found = {cat, it, n}; break; }
+        }
+        if(found) break;
+      }
+      if(!found){
+        document.getElementById('dishTitle').textContent = 'Platillo no encontrado';
+        return;
+      }
+      const getText = (field) => {
+        if(!field) return '';
+        if(typeof field === 'string') return field;
+        return field[LANG] || field.fr || field.en || field.es || Object.values(field)[0] || '';
+      };
+      const title = getText(found.it.name);
+      document.title = `${title} — Tulum`;
+      document.getElementById('dishTitle').textContent = title;
+      document.getElementById('dishPrice').textContent = found.it.price || '';
+      document.getElementById('dishDesc').textContent = getText(found.it.desc) || '';
+      const imgEl = document.getElementById('dishImage');
+      const src = found.it.image ? found.it.image : (found.it.ai ? generateAIImage(title) : (found.it.thumb || '../assets/gallery1.webp'));
+      imgEl.src = src;
+      imgEl.alt = title;
+    }
+    init();
+  </script>
+</body>
+</html>
