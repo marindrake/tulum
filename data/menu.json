@@ -4,14 +4,14 @@
       "title": "Platos principales (precios en)",
       "items": [
         { "name": { "es": "Arroz (por litro)", "en": "Rice (per liter)", "fr": "Riz (par litre)" }, "price": "$5.00", "image": "assets/arroz.png" },
-        { "name": { "es": "Gorditas rellenas de papa", "en": "Gorditas stuffed with potato", "fr": "Gorditas farcies aux pommes de terre" }, "price": "$4.50", "image": "assets/gorditas-papa.png" },
-        { "name": { "es": "Flautas (papa / pollo)", "en": "Flautas (potato / chicken)", "fr": "Flautas (pommes de terre / poulet)" }, "price": "$6.00", "image": "assets/flautas-papa.pollo.png" },
-        { "name": { "es": "Chilaquiles", "en": "Chilaquiles", "fr": "Chilaquiles" }, "price": "$11.00", "image": "assets/chilaquiles.png?v=2" },
-        { "name": { "es": "Tostadas (pollo / papa)", "en": "Tostadas (chicken / potato)", "fr": "Tostadas (poulet / pommes de terre)" }, "price": "$7.00", "image": "assets/tostadas-pollo.papa.png" },
-        { "name": { "es": "Guacamole", "en": "Guacamole", "fr": "Guacamole" }, "price": "$6.00", "image": "assets/guacamole.png" },
+        { "name": { "es": "Gorditas de pollo, papa o frijol (3)", "en": "Gorditas chicken, potato or beans (3)", "fr": "Gorditas poulet, pommes de terre ou haricots (3)" }, "price": "$10.00", "image": "assets/gorditas-papa.png" },
+        { "name": { "es": "Flautas de pollo, papa o frijol (4)", "en": "Flautas chicken, potato or beans (4)", "fr": "Flautas poulet, pommes de terre ou haricots (4)" }, "price": "$10.00", "image": "assets/flautas-papa.pollo.png" },
+        { "name": { "es": "Chilaquiles rojos o verdes", "en": "Chilaquiles red or green", "fr": "Chilaquiles rouges ou verts" }, "price": "$10.00", "image": "assets/chilaquiles.png?v=2" },
+        { "name": { "es": "Tostadas de pollo o papa (3)", "en": "Tostadas chicken or potato (3)", "fr": "Tostadas poulet ou pommes de terre (3)" }, "price": "$10.00", "image": "assets/tostadas-pollo.papa.png" },
+        { "name": { "es": "Porción de guacamole 350ml con totopos", "en": "Guacamole portion 350ml with totopos", "fr": "Portion de guacamole 350ml avec totopos" }, "price": "$10.00", "image": "assets/guacamole.png" },
         { "name": { "es": "Papas a la francesa", "en": "French fries", "fr": "Frites" }, "price": "$4.00", "image": "assets/papasfrancesa.png" },
         { "name": { "es": "Banderilla", "en": "Corn dog (Banderilla)", "fr": "Banderilla (saucisse panée)" }, "price": "$3.00", "image": "assets/banderilla.png" },
-        { "name": { "es": "Nachos", "en": "Nachos", "fr": "Nachos" }, "price": "$9.00", "image": "assets/nachos.png" },
+        { "name": { "es": "Nachos", "en": "Nachos", "fr": "Nachos" }, "price": "$10.00", "image": "assets/nachos.png" },
         { "name": { "es": "Frijoles (litro / medio litro)", "en": "Beans (liter / half)", "fr": "Haricots (litre / demi-litre)" }, "price": "$4.00 / $2.50", "image": "assets/frijoles.png" },
         { "name": { "es": "Torta de chilaquiles", "en": "Chilaquiles sandwich", "fr": "Sandwich de chilaquiles" }, "price": "$8.00", "image": "assets/torta.chilaquiles.png" },
         { "name": { "es": "Torta de pollo", "en": "Chicken sandwich", "fr": "Sandwich au poulet" }, "price": "$8.00", "image": "assets/torta.pollo.png" }
@@ -20,13 +20,13 @@
     {
       "title": "Snacks y postres (precios en)",
       "items": [
-        { "name": { "es": "Papas fritas (bolsa)", "en": "Potato chips (bag)", "fr": "Chips (sachet)" }, "price": "$2.50", "ai": true },
-        { "name": { "es": "Chicharrines / palomitas (bolsa)", "en": "Pork rinds / popcorn (bag)", "fr": "Chicharrines / pop-corn (sachet)" }, "price": "$2.50", "ai": true },
-        { "name": { "es": "Totopos (bolsa)", "en": "Tortilla chips (bag)", "fr": "Totopos (sachet)" }, "price": "$3.00", "ai": true },
-        { "name": { "es": "Gelatina", "en": "Jelly", "fr": "Gelée" }, "price": "$3.00", "ai": true },
-        { "name": { "es": "Fresas con crema", "en": "Strawberries with cream", "fr": "Fraises à la crème" }, "price": "$5.00", "ai": true },
-        { "name": { "es": "Mini hotcakes con topping", "en": "Mini pancakes with topping", "fr": "Mini pancakes avec garniture" }, "price": "$4.00", "thumb": "assets/thumb-trifle.webp", "ai": true },
-        { "name": { "es": "Plátanos fritos", "en": "Fried plantains", "fr": "Bananes frites" }, "price": "$3.50", "ai": true },
+        { "name": { "es": "Papas fritas lajeadas (350grs)", "en": "Sliced potato chips (350grs)", "fr": "Chips de pommes de terre tranchées (350grs)" }, "price": "$5.00", "ai": true },
+        { "name": { "es": "Chicharrines (350grs)", "en": "Pork rinds (350grs)", "fr": "Chicharrines (350grs)" }, "price": "$5.00", "ai": true },
+        { "name": { "es": "Totopos (350grs)", "en": "Tortilla chips (350grs)", "fr": "Totopos (350grs)" }, "price": "$5.00", "ai": true },
+        { "name": { "es": "Gelatinas de fruta y de leche (16 Oz)", "en": "Fruit and milk gelatin (16 Oz)", "fr": "Gélatines de fruits et de lait (16 Oz)" }, "price": "$6.00", "ai": true },
+        { "name": { "es": "Fresas con crema (16 oz)", "en": "Strawberries with cream (16 oz)", "fr": "Fraises à la crème (16 oz)" }, "price": "$11.00", "ai": true },
+        { "name": { "es": "Mini hotcakes con topping", "en": "Mini pancakes with topping", "fr": "Mini pancakes avec garniture" }, "price": "$10.00", "thumb": "assets/thumb-trifle.webp", "ai": true },
+        { "name": { "es": "Plátanos fritos", "en": "Fried plantains", "fr": "Bananes frites" }, "price": "$5.00", "ai": true },
         { "name": { "es": "Pasteles / Carlota", "en": "Cakes / Carlota", "fr": "Gâteaux / Carlota" }, "price": "$4.50", "ai": true },
         { "name": { "es": "Churros", "en": "Churros", "fr": "Churros" }, "price": "$2.50", "thumb": "assets/thumb-roll.webp", "ai": true },
         { "name": { "es": "Bolitas con topping", "en": "Topped balls", "fr": "Boules garnies" }, "price": "$3.00", "ai": true },
@@ -37,8 +37,8 @@
     {
       "title": "Bebidas (precios en)",
       "items": [
-        { "name": { "es": "Aguas frescas (Jamaica, Horchata, Fresa)", "en": "Aguas frescas (Hibiscus, Horchata, Strawberry)", "fr": "Aguas frescas (hibiscus, horchata, fraise)" }, "price": "$3.00", "ai": true },
-        { "name": { "es": "Refrescos de lata", "en": "Canned sodas", "fr": "Sodas en canette" }, "price": "$2.50", "ai": true }
+        { "name": { "es": "Aguas frescas (Jamaica, Horchata, Fresa)", "en": "Aguas frescas (Hibiscus, Horchata, Strawberry)", "fr": "Aguas frescas (hibiscus, horchata, fraise)" }, "price": "$3.00", "image": "assets/aguas.frescas.png" },
+        { "name": { "es": "Refresco de lata (355ml)", "en": "Canned soda (355ml)", "fr": "Soda en canette (355ml)" }, "price": "$2.00", "image": "assets/refresco.lata.png" }
       ]
     }
   ]
