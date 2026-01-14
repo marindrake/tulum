@@ -59,32 +59,34 @@
         <div class="menu-grid">
           <article class="menu-item">
               <picture>
-                <source srcset="assets/gallery1.webp" type="image/webp">
-                <img class="thumb" src="assets/gallery1.webp" alt="Plato 1">
+                <source srcset="assets/gorditas-papa.png" type="image/png">
+                <img class="thumb" src="assets/gorditas-papa.png" alt="Gorditas combo">
               </picture>
-            <h3>Flan de coco</h3>
-            <p class="price">$4.00 CAD</p>
-            <p class="desc">Flan cremoso con toque de coco.</p>
+            <h3>Gorditas de pollo, papa o frijol (3)</h3>
+            <p class="price">$10.00 → <span style="color: #4b8a3e; font-weight: 700;">$11.50 combo refresco</span></p>
+            <p class="price" style="margin-top: 4px;">$10.00 → <span style="color: #4b8a3e; font-weight: 700;">$14.50 combo horchata</span></p>
+            <p class="desc">¡Ahorra ordenando combo! Incluye bebida.</p>
           </article>
 
           <article class="menu-item">
               <picture>
-                <source srcset="assets/gallery2.webp" type="image/webp">
-                <img class="thumb" src="assets/gallery2.webp" alt="Plato 2">
+                <source srcset="assets/papasfrancesa.png" type="image/png">
+                <img class="thumb" src="assets/papasfrancesa.png" alt="Papas a la francesa">
               </picture>
-            <h3>Copa de frutas</h3>
-            <p class="price">$5.00 CAD</p>
-            <p class="desc">Frutas frescas con crema y crujiente.</p>
+            <h3>Papas a la francesa</h3>
+            <p class="price">$5.00 → <span style="color: #4b8a3e; font-weight: 700;">$8.00 con queso</span></p>
+            <p class="desc">Deliciosas papas fritas. ¡Agrégales queso!</p>
           </article>
 
           <article class="menu-item">
               <picture>
-                <source srcset="assets/gallery3.webp" type="image/webp">
-                <img class="thumb" src="assets/gallery3.webp" alt="Plato 3">
+                <source srcset="assets/torta.chilaquiles.png" type="image/png">
+                <img class="thumb" src="assets/torta.chilaquiles.png" alt="Torta de chilaquiles">
               </picture>
-            <h3>Roll dulce</h3>
-            <p class="price">$3.50 CAD</p>
-            <p class="desc">Roll relleno con toque cítrico.</p>
+            <h3>Torta de chilaquiles</h3>
+            <p class="price">$12.00 → <span style="color: #4b8a3e; font-weight: 700;">$13.50 combo refresco</span></p>
+            <p class="price" style="margin-top: 4px;">$12.00 → <span style="color: #4b8a3e; font-weight: 700;">$16.50 combo horchata</span></p>
+            <p class="desc">Con papa o pollo. ¡Ordena combo y ahorra!</p>
           </article>
         </div>
       </div>
@@ -359,6 +361,8 @@
           const ul = document.createElement('ul');
           cat.items.forEach(it => {
             const li = document.createElement('li');
+            const hasOptions = it.options && it.options.length > 0;
+            
             // resolve image URL for large view
             const resolveImage = () => {
               if(it.image) return it.image;
@@ -417,17 +421,32 @@
             thumbLink.appendChild(img);
             midCol.appendChild(thumbLink);
             
-            // Price below image
-            const spanPrice = document.createElement('span');
-            spanPrice.className = 'price';
-            spanPrice.textContent = it.price;
-            midCol.appendChild(spanPrice);
+            // Price below image (or select for options)
+            let selectEl = null;
+            if(hasOptions){
+              const select = document.createElement('select');
+              select.className = 'option-select';
+              select.id = `opt-${slug}`;
+              it.options.forEach((opt, idx) => {
+                const option = document.createElement('option');
+                option.value = idx;
+                option.textContent = `${getText(opt.size)} - ${opt.price}`;
+                select.appendChild(option);
+              });
+              midCol.appendChild(select);
+              selectEl = select; // Guardar referencia directa
+            } else {
+              const spanPrice = document.createElement('span');
+              spanPrice.className = 'price';
+              spanPrice.textContent = it.price;
+              midCol.appendChild(spanPrice);
+            }
             
             li.appendChild(midCol);
             
             // Right column: quantity control
-            const itemPrice = parseFloat(it.price.replace('$', '').split('/')[0]);
-            const itemId = slug;
+            const itemPrice = hasOptions ? parseFloat(it.options[0].price.replace('$', '')) : parseFloat(it.price.replace('$', '').split('/')[0]);
+            const baseId = slug;
             const itemName = getText(it.name);
             
             const qtyControl = document.createElement('div');
@@ -436,15 +455,29 @@
             qtyInput.type = 'number';
             qtyInput.min = '0';
             qtyInput.value = '0';
+            qtyInput.id = `qty-${slug}`;
+            
             qtyInput.addEventListener('change', (e) => {
               const qty = parseInt(e.target.value) || 0;
+              let finalPrice = itemPrice;
+              let finalName = itemName;
+              let itemId = baseId;
+              
+              if(hasOptions && selectEl){
+                const optIdx = parseInt(selectEl.value);
+                finalPrice = parseFloat(it.options[optIdx].price.replace('$', ''));
+                finalName = `${itemName} (${getText(it.options[optIdx].size)})`;
+                itemId = `${baseId}-opt${optIdx}`; // ID único por opción
+              }
+              
               if(qty > 0){
-                orderCart[itemId] = {name: itemName, price: itemPrice, qty: qty};
+                orderCart[itemId] = {name: finalName, price: finalPrice, qty: qty};
               } else {
                 delete orderCart[itemId];
               }
               updateCartDisplay();
             });
+            
             qtyControl.appendChild(qtyInput);
             const addBtn = document.createElement('button');
             addBtn.textContent = 'Agregar';
@@ -456,6 +489,17 @@
             });
             qtyControl.appendChild(addBtn);
             li.appendChild(qtyControl);
+            
+            // Agregar event listener para el select después de que esté en el DOM
+            if(hasOptions && selectEl){
+              selectEl.addEventListener('change', () => {
+                // Cuando cambia la opción, actualizar el input para mostrar la cantidad de esta opción en el carrito
+                const optIdx = parseInt(selectEl.value);
+                const currentItemId = `${baseId}-opt${optIdx}`;
+                const existingQty = orderCart[currentItemId] ? orderCart[currentItemId].qty : 0;
+                qtyInput.value = existingQty;
+              });
+            }
             
             // optional description
             if(it.desc){
