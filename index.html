@@ -189,12 +189,12 @@
     <section id="galeria" class="section">
       <div class="container">
         <h2 data-i18n="gallery.title">Galería</h2>
-        <div class="gallery">
-           <picture><source srcset="assets/gallery1.webp" type="image/webp"><img class="g-item" src="assets/gallery1.webp" alt="Postre 1" loading="lazy"></picture>
-           <picture><source srcset="assets/gallery2.webp" type="image/webp"><img class="g-item" src="assets/gallery2.webp" alt="Postre 2" loading="lazy"></picture>
-           <picture><source srcset="assets/gallery3.webp" type="image/webp"><img class="g-item" src="assets/gallery3.webp" alt="Postre 3" loading="lazy"></picture>
-           <picture><source srcset="assets/gallery4.webp" type="image/webp"><img class="g-item" src="assets/gallery4.webp" alt="Postre 4" loading="lazy"></picture>
+        <div class="gallery-carousel">
+          <button class="carousel-nav prev" aria-label="Anterior" onclick="moveGallery(-1)">❮</button>
+          <div class="gallery" id="galleryContainer"></div>
+          <button class="carousel-nav next" aria-label="Siguiente" onclick="moveGallery(1)">❯</button>
         </div>
+        <div class="gallery-dots" id="galleryDots"></div>
       </div>
     </section>
 
@@ -547,6 +547,106 @@
       document.body.style.overflow = '';
     }
 
+    // Gallery Carousel
+    const galleryImages = [
+      { src: 'assets/gallery1.webp', alt: 'Experiencia en Tulum 1' },
+      { src: 'assets/gallery2.webp', alt: 'Experiencia en Tulum 2' },
+      { src: 'assets/gallery3.webp', alt: 'Experiencia en Tulum 3' },
+      { src: 'assets/gallery4.webp', alt: 'Experiencia en Tulum 4' },
+      // Puedes agregar más imágenes aquí cuando las tengas:
+      // { src: 'assets/gallery5.webp', alt: 'Cliente feliz 1' },
+      // { src: 'assets/gallery6.webp', alt: 'Cliente feliz 2' },
+      // { src: 'assets/gallery7.webp', alt: 'Cliente feliz 3' },
+      // { src: 'assets/gallery8.webp', alt: 'Cliente feliz 4' },
+      // { src: 'assets/gallery9.webp', alt: 'Cliente feliz 5' },
+      // { src: 'assets/gallery10.webp', alt: 'Cliente feliz 6' },
+    ];
+
+    let currentGalleryIndex = 0;
+    let galleryAutoPlayInterval = null;
+    const IMAGES_TO_SHOW = 4;
+
+    function renderGallery() {
+      const container = document.getElementById('galleryContainer');
+      const dotsContainer = document.getElementById('galleryDots');
+      if (!container) return;
+
+      container.innerHTML = '';
+      dotsContainer.innerHTML = '';
+
+      // Calcular cuántas "páginas" hay
+      const totalPages = Math.ceil(galleryImages.length / IMAGES_TO_SHOW);
+      
+      // Mostrar las imágenes de la página actual
+      const startIdx = currentGalleryIndex * IMAGES_TO_SHOW;
+      const endIdx = Math.min(startIdx + IMAGES_TO_SHOW, galleryImages.length);
+      
+      for (let i = startIdx; i < endIdx; i++) {
+        const img = galleryImages[i];
+        const picture = document.createElement('picture');
+        picture.innerHTML = `
+          <source srcset="${img.src}" type="image/webp">
+          <img class="g-item" src="${img.src}" alt="${img.alt}" loading="lazy" onclick="openImageModal('${img.src}', '${img.alt}')">
+        `;
+        container.appendChild(picture);
+      }
+
+      // Crear dots de navegación
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'gallery-dot' + (i === currentGalleryIndex ? ' active' : '');
+        dot.onclick = () => goToGalleryPage(i);
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function moveGallery(direction) {
+      const totalPages = Math.ceil(galleryImages.length / IMAGES_TO_SHOW);
+      currentGalleryIndex = (currentGalleryIndex + direction + totalPages) % totalPages;
+      renderGallery();
+      resetGalleryAutoPlay();
+    }
+
+    function goToGalleryPage(index) {
+      currentGalleryIndex = index;
+      renderGallery();
+      resetGalleryAutoPlay();
+    }
+
+    function autoPlayGallery() {
+      moveGallery(1);
+    }
+
+    function startGalleryAutoPlay() {
+      galleryAutoPlayInterval = setInterval(autoPlayGallery, 5000); // Cambiar cada 5 segundos
+    }
+
+    function resetGalleryAutoPlay() {
+      if (galleryAutoPlayInterval) {
+        clearInterval(galleryAutoPlayInterval);
+      }
+      startGalleryAutoPlay();
+    }
+
+    // Inicializar galería cuando cargue la página
+    function initGallery() {
+      renderGallery();
+      startGalleryAutoPlay();
+      
+      // Pausar autoplay cuando el usuario interactúa
+      const gallerySection = document.getElementById('galeria');
+      if (gallerySection) {
+        gallerySection.addEventListener('mouseenter', () => {
+          if (galleryAutoPlayInterval) {
+            clearInterval(galleryAutoPlayInterval);
+          }
+        });
+        gallerySection.addEventListener('mouseleave', () => {
+          startGalleryAutoPlay();
+        });
+      }
+    }
+
     // Shopping Cart for Orders
     let orderCart = {};
     let allMenuItems = [];
@@ -697,6 +797,7 @@
       }
       await loadMenu();
       await loadOrderMenu();
+      initGallery(); // Inicializar carrusel de galería
     })();
   </script>
   <script src="scripts/wheel.js" defer></script>
