@@ -73,12 +73,16 @@ body{
   padding: 6px 8px;
 }
 .lang-switch .flag{font-size:14px}
-.flag-icon{
-  width:20px;
-  height:15px;
+.lang-switch button .flag-icon{
+  width:20px !important;
+  height:15px !important;
+  max-width:20px !important;
+  max-height:15px !important;
   object-fit:cover;
   border-radius:3px;
   box-shadow:0 1px 3px rgba(0,0,0,0.15);
+  display:inline-block;
+  vertical-align:middle;
 }
 .nav{position:relative}
 
