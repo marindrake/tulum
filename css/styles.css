@@ -35,7 +35,7 @@ body{
 }
 .header-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
 .brand{display:flex; flex-direction:column}
-.site-logo{height:48px; width:auto; max-width:180px; display:block; object-fit:contain}
+.site-logo{height:96px; width:auto; max-width:360px; display:block; object-fit:contain}
 .logo-mark{font-family: 'Georgia', serif; font-size:28px; color:var(--accent); font-weight:700}
 .brand-sub{font-size:12px; color:var(--muted); margin-top:2px}
 
@@ -73,6 +73,13 @@ body{
   padding: 6px 8px;
 }
 .lang-switch .flag{font-size:14px}
+.flag-icon{
+  width:20px;
+  height:15px;
+  object-fit:cover;
+  border-radius:3px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.15);
+}
 .nav{position:relative}
 
 /* Spin wheel modal */
@@ -92,10 +99,10 @@ body{
 }
 
   /* Spin trigger (temu-like) */
-  .spin-trigger{position:relative;background:linear-gradient(135deg,#ff6b35,#ff9b66);color:#111;border:none;padding:12px 18px;border-radius:999px;font-weight:800;box-shadow:0 8px 26px rgba(255,107,53,0.28);display:inline-flex;align-items:center;gap:10px;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,filter .18s}
+  .spin-trigger{position:relative;background:linear-gradient(135deg,#ff6b35,#ff9b66);color:#111;border:none;padding:14px 24px;border-radius:999px;font-weight:800;font-size:16px;box-shadow:0 8px 26px rgba(255,107,53,0.28);display:inline-flex;align-items:center;gap:10px;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,filter .18s}
   .spin-trigger:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 36px rgba(255,107,53,0.32);filter:brightness(1.02)}
   .spin-trigger:active{transform:translateY(0)}
-  .spin-trigger .spark{font-size:18px}
+  .spin-trigger .spark{font-size:22px}
   .spin-trigger::after{content:'';display:block;position:absolute;pointer-events:none;width:120%;height:120%;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:999px;z-index:-1;filter:blur(24px);opacity:0.18;background:radial-gradient(circle at 30% 30%, rgba(255,170,120,0.28), transparent 30%)}
   /* subtle rotating sparkles */
   .spin-trigger .spark{display:inline-block;animation:spin-spark 2.8s linear infinite}
