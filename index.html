@@ -26,11 +26,11 @@
           <img src="https://flagcdn.com/w40/mx.png" alt="" class="flag-icon"> ES
         </button>
       <div style="margin-left:12px">
-        <button id="spinTrigger" class="spin-trigger" aria-haspopup="dialog"><span class="spark">�</span> Gira y gana</button>
+        <button id="spinTrigger" class="spin-trigger" aria-haspopup="dialog" data-i18n="spin.button"><span class="spark">🎡</span> Gira y gana</button>
       </div>
       </div>
       <nav class="nav" id="nav">
-        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" data-i18n-aria="nav.toggle">☰</button>
         <ul class="nav-list" id="navList">
           <li><a href="#home" data-i18n="nav.home">Inicio</a></li>
           <li><a href="#menu" data-i18n="nav.menu">Menú</a></li>
@@ -63,35 +63,50 @@
         <h2 data-i18n="featured.title">Menú destacado</h2>
         <div class="menu-grid">
           <article class="menu-item">
+            <div class="menu-item-image-wrapper">
+              <span class="menu-item-badge" data-i18n="badge.popular">Popular</span>
               <picture>
                 <source srcset="assets/gorditas-papa.png" type="image/png">
                 <img class="thumb" src="assets/gorditas-papa.png" alt="Gorditas combo">
               </picture>
-            <h3>Gorditas de pollo, papa o frijol (3)</h3>
-            <p class="price">$10.00 → <span style="color: #4b8a3e; font-weight: 700;">$11.50 combo refresco</span></p>
-            <p class="price" style="margin-top: 4px;">$10.00 → <span style="color: #4b8a3e; font-weight: 700;">$14.50 combo horchata</span></p>
-            <p class="desc">¡Ahorra ordenando combo! Incluye bebida.</p>
+            </div>
+            <div class="menu-item-content">
+              <h3 data-i18n="featured.item1.name">Gorditas de pollo, papa o frijol (3)</h3>
+              <p class="price" data-i18n="featured.item1.price1">$10.00 → <span>$11.50 combo refresco</span></p>
+              <p class="price" data-i18n="featured.item1.price2">$10.00 → <span>$14.50 combo horchata</span></p>
+              <p class="desc" data-i18n="featured.item1.desc">¡Ahorra ordenando combo! Incluye bebida.</p>
+            </div>
           </article>
 
           <article class="menu-item">
+            <div class="menu-item-image-wrapper">
+              <span class="menu-item-badge" data-i18n="badge.favorite">Favorito</span>
               <picture>
                 <source srcset="assets/papasfrancesa.png" type="image/png">
                 <img class="thumb" src="assets/papasfrancesa.png" alt="Papas a la francesa">
               </picture>
-            <h3>Papas a la francesa</h3>
-            <p class="price">$5.00 → <span style="color: #4b8a3e; font-weight: 700;">$8.00 con queso</span></p>
-            <p class="desc">Deliciosas papas fritas. ¡Agrégales queso!</p>
+            </div>
+            <div class="menu-item-content">
+              <h3 data-i18n="featured.item2.name">Papas a la francesa</h3>
+              <p class="price" data-i18n="featured.item2.price">$5.00 → <span>$8.00 con queso</span></p>
+              <p class="desc" data-i18n="featured.item2.desc">Deliciosas papas fritas. ¡Agrégales queso!</p>
+            </div>
           </article>
 
           <article class="menu-item">
+            <div class="menu-item-image-wrapper">
+              <span class="menu-item-badge" data-i18n="badge.new">Nuevo</span>
               <picture>
                 <source srcset="assets/torta.chilaquiles.png" type="image/png">
                 <img class="thumb" src="assets/torta.chilaquiles.png" alt="Torta de chilaquiles">
               </picture>
-            <h3>Torta de chilaquiles</h3>
-            <p class="price">$12.00 → <span style="color: #4b8a3e; font-weight: 700;">$13.50 combo refresco</span></p>
-            <p class="price" style="margin-top: 4px;">$12.00 → <span style="color: #4b8a3e; font-weight: 700;">$16.50 combo horchata</span></p>
-            <p class="desc">Con papa o pollo. ¡Ordena combo y ahorra!</p>
+            </div>
+            <div class="menu-item-content">
+              <h3 data-i18n="featured.item3.name">Torta de chilaquiles</h3>
+              <p class="price" data-i18n="featured.item3.price1">$12.00 → <span>$13.50 combo refresco</span></p>
+              <p class="price" data-i18n="featured.item3.price2">$12.00 → <span>$16.50 combo horchata</span></p>
+              <p class="desc" data-i18n="featured.item3.desc">Con papa o pollo. ¡Ordena combo y ahorra!</p>
+            </div>
           </article>
         </div>
       </div>
@@ -155,37 +170,37 @@
         <div class="orders-grid">
           <!-- Order Form -->
           <div class="order-form-col">
-            <h3 style="margin-top:0">Tu información</h3>
+            <h3 style="margin-top:0" data-i18n="orders.yourInfo">Tu información</h3>
             <form class="form-order" id="orderForm">
               <label>
-                Nombre
-                <input type="text" id="orderName" placeholder="Tu nombre" required>
+                <span data-i18n="orders.name">Nombre</span>
+                <input type="text" id="orderName" placeholder="" required>
               </label>
               <label>
-                Teléfono (WhatsApp)
+                <span data-i18n="orders.phone">Teléfono (WhatsApp)</span>
                 <input type="tel" id="orderPhone" placeholder="+1 (514) 000-0000" required>
               </label>
               <label>
-                Fecha de entrega
+                <span data-i18n="orders.date">Fecha de entrega</span>
                 <input type="date" id="orderDate" required>
               </label>
-              <button class="btn btn-primary" type="submit" id="orderBtn">Ordenar</button>
+              <button class="btn btn-primary" type="submit" id="orderBtn" data-i18n="orders.sendOrder">Enviar Pedido</button>
             </form>
           </div>
           
           <!-- Shopping Cart -->
           <div class="cart-col">
-            <h3 style="margin-top:0">Mi pedido</h3>
+            <h3 style="margin-top:0" data-i18n="orders.myOrder">Mi pedido</h3>
             <div id="cartItems" class="cart-items"></div>
             <div class="cart-total">
-              <strong>Total: <span id="cartTotal">$0.00</span></strong>
+              <strong><span data-i18n="orders.total">Total</span>: <span id="cartTotal">$0.00</span></strong>
             </div>
           </div>
         </div>
         
         <!-- Menu to Add Items -->
         <div style="margin-top:28px">
-          <h3>Selecciona los artículos</h3>
+          <h3 data-i18n="orders.selectItems">Selecciona los artículos</h3>
           <div id="orderMenuColumns" class="menu-columns"></div>
         </div>
       </div>
@@ -195,9 +210,9 @@
       <div class="container">
         <h2 data-i18n="gallery.title">Galería</h2>
         <div class="gallery-carousel">
-          <button class="carousel-nav prev" aria-label="Anterior" onclick="moveGallery(-1)">❮</button>
+          <button class="carousel-nav prev" aria-label="Anterior" data-i18n-aria="carousel.prev" onclick="moveGallery(-1)">❮</button>
           <div class="gallery" id="galleryContainer"></div>
-          <button class="carousel-nav next" aria-label="Siguiente" onclick="moveGallery(1)">❯</button>
+          <button class="carousel-nav next" aria-label="Siguiente" data-i18n-aria="carousel.next" onclick="moveGallery(1)">❯</button>
         </div>
         <div class="gallery-dots" id="galleryDots"></div>
       </div>
@@ -214,7 +229,7 @@
         </div>
         <div class="map-placeholder">
           <div style="text-align:center">
-            <p style="margin:0 0 8px">Escanea para guardar contacto</p>
+            <p style="margin:0 0 8px" data-i18n="contact.scanQR">Escanea para guardar contacto</p>
             <img src="assets/qr_contact.webp" alt="QR contacto" width="200" height="200" loading="lazy">
           </div>
         </div>
@@ -228,7 +243,7 @@
     </div>
   </footer>
 
-  <a href="https://wa.me/15149377754" class="whatsapp-fab" aria-label="Enviar WhatsApp">💬</a>
+  <a href="https://wa.me/15149377754" class="whatsapp-fab" aria-label="Enviar WhatsApp" data-i18n-aria="whatsapp.label">💬</a>
 
   <script>
     const navToggle = document.getElementById('navToggle');
@@ -257,9 +272,20 @@
       const t = TRANSLATIONS[LANG] || TRANSLATIONS['fr'];
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if(key && t[key]) el.innerHTML = t[key];
+        if(key && t[key]) {
+          // Para el botón de la ruleta, mantener el emoji
+          if(key === 'spin.button') {
+            el.innerHTML = '<span class="spark">🎡</span> ' + t[key].replace(/^🎡\s*/, '');
+          } else {
+            el.innerHTML = t[key];
+          }
+        }
       });
-      // update nav links specially (they also have data-i18n)
+      // update aria-labels
+      document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+        const key = el.getAttribute('data-i18n-aria');
+        if(key && t[key]) el.setAttribute('aria-label', t[key]);
+      });
     }
 
     function setLang(l){
@@ -329,6 +355,7 @@
           const w = 1600, h = 1067;
           const gradId = 'g'+Math.random().toString(36).slice(2);
           const safe = (title||'Platillo').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          const protoText = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['image.generated']) || 'Imagen generada (prototipo)';
           const svg = `<?xml version="1.0" encoding="UTF-8"?>
           <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
             <defs>
@@ -352,7 +379,7 @@
               <circle r="260" fill="#fff" opacity="0.18"/>
             </g>
             <text x="50%" y="50%" font-family="Poppins, Arial, sans-serif" font-size="56" font-weight="800" text-anchor="middle" fill="#121212">${safe}</text>
-            <text x="50%" y="50%" dy="54" font-family="Poppins, Arial, sans-serif" font-size="22" text-anchor="middle" fill="#444">Imagen generada (prototipo)</text>
+            <text x="50%" y="50%" dy="54" font-family="Poppins, Arial, sans-serif" font-size="22" text-anchor="middle" fill="#444">${protoText}</text>
           </svg>`;
           return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
         };
@@ -484,15 +511,33 @@
             });
             
             qtyControl.appendChild(qtyInput);
+            
             const addBtn = document.createElement('button');
-            addBtn.textContent = 'Agregar';
+            addBtn.setAttribute('data-i18n', 'menu.addButton');
+            addBtn.textContent = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['menu.addButton']) || 'Agregar';
             addBtn.type = 'button';
+            addBtn.className = 'qty-btn-add';
             addBtn.addEventListener('click', () => {
               const currentQty = parseInt(qtyInput.value) || 0;
               qtyInput.value = currentQty + 1;
               qtyInput.dispatchEvent(new Event('change'));
             });
             qtyControl.appendChild(addBtn);
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.setAttribute('data-i18n', 'menu.removeButton');
+            removeBtn.textContent = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['menu.removeButton']) || 'Eliminar';
+            removeBtn.type = 'button';
+            removeBtn.className = 'qty-btn-remove';
+            removeBtn.addEventListener('click', () => {
+              const currentQty = parseInt(qtyInput.value) || 0;
+              if(currentQty > 0){
+                qtyInput.value = currentQty - 1;
+                qtyInput.dispatchEvent(new Event('change'));
+              }
+            });
+            qtyControl.appendChild(removeBtn);
+            
             li.appendChild(qtyControl);
             
             // Agregar event listener para el select después de que esté en el DOM
@@ -527,12 +572,14 @@
     function openImageModal(src, alt){
       let modal = document.getElementById('imageModal');
       if(!modal){
+        const dishLabel = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['modal.dish']) || 'Vista de platillo';
+        const closeLabel = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['modal.close']) || 'Cerrar';
         modal = document.createElement('div');
         modal.id = 'imageModal';
         modal.className = 'image-modal';
         modal.innerHTML = `
-          <div class="image-dialog" role="dialog" aria-modal="true" aria-label="Vista de platillo">
-            <button class="image-close" id="imageClose" aria-label="Cerrar">✕</button>
+          <div class="image-dialog" role="dialog" aria-modal="true" aria-label="${dishLabel}">
+            <button class="image-close" id="imageClose" aria-label="${closeLabel}">✕</button>
             <img id="imageViewer" alt="" />
           </div>`;
         document.body.appendChild(modal);
@@ -742,12 +789,14 @@
       const date = document.getElementById('orderDate').value;
 
       if(!name || !phoneRaw || !date){
-        alert('Por favor completa todos los campos');
+        const msg = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['validation.completeFields']) || 'Por favor completa todos los campos';
+        alert(msg);
         return;
       }
 
       if(Object.keys(orderCart).length === 0){
-        alert('Por favor selecciona al menos un artículo');
+        const msg = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['validation.selectItem']) || 'Por favor selecciona al menos un artículo';
+        alert(msg);
         return;
       }
 
@@ -756,7 +805,8 @@
       
       // Validate phone number (should have at least 10 digits)
       if(!/^\d{10,}$/.test(phone)){
-        alert('Por favor ingresa un número de teléfono válido');
+        const msg = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['validation.validPhone']) || 'Por favor ingresa un número de teléfono válido';
+        alert(msg);
         return;
       }
 
