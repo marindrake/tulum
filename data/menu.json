@@ -90,12 +90,12 @@
         { "name": { "es": "Totopos (350 grs)", "en": "Tortilla chips (350 grs)", "fr": "Totopos (350 grs)" }, "price": "$5.00", "image": "assets/totopos.png" },
         { "name": { "es": "Gelatinas de fruta y de leche (16 oz)", "en": "Fruit and milk gelatin (16 oz)", "fr": "Gélatines de fruits et de lait (16 oz)" }, "price": "$6.00", "image": "assets/gelatinas-fruta-leche.png" },
         { "name": { "es": "Fresas con crema (16 oz)", "en": "Strawberries with cream (16 oz)", "fr": "Fraises à la crème (16 oz)" }, "price": "$11.00", "image": "assets/fresas-crema.png" },
-        { "name": { "es": "Mini hotcakes con topping", "en": "Mini pancakes with topping", "fr": "Mini pancakes avec garniture" }, "price": "$10.00", "thumb": "assets/thumb-trifle.webp", "ai": true },
+        { "name": { "es": "Mini hotcakes con topping", "en": "Mini pancakes with topping", "fr": "Mini pancakes avec garniture" }, "price": "$10.00", "image": "assets/hotcakes.png" },
         { "name": { "es": "Plátanos fritos", "en": "Fried plantains", "fr": "Bananes frites" }, "price": "$5.00", "image": "assets/platanos.png" },
         { "name": { "es": "Carlota (16 oz)", "en": "Carlota (16 oz)", "fr": "Carlota (16 oz)" }, "price": "$5.00", "image": "assets/carlota.png" },
         { "name": { "es": "Churros (3)", "en": "Churros (3)", "fr": "Churros (3)" }, "price": "$5.00", "image": "assets/churros.png" },
-        { "name": { "es": "Bolitas con topping", "en": "Topped balls", "fr": "Boules garnies" }, "price": "$3.00", "ai": true },
-        { "name": { "es": "Waffles", "en": "Waffles", "fr": "Gaufres" }, "price": "$6.00", "ai": true },
+        { "name": { "es": "Bolitas con topping", "en": "Topped balls", "fr": "Boules garnies" }, "price": "$3.00", "image": "assets/bolitas.png" },
+        { "name": { "es": "Waffles", "en": "Waffles", "fr": "Gaufres" }, "price": "$6.00", "image": "assets/waffles.png" },
         { "name": { "es": "Flan de platano", "en": "Banana flan", "fr": "Flan à la banane" }, "price": "$5.00", "thumb": "assets/thumb-flan.webp", "ai": true },
         { "name": { "es": "Arroz con leche (16 oz)", "en": "Rice pudding (16 oz)", "fr": "Riz au lait (16 oz)" }, "price": "$5.00", "image": "assets/arroz-leche.png" }
       ]
