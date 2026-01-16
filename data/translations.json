@@ -78,7 +78,10 @@
     "validation.validPhone": "Veuillez entrer un numéro de téléphone valide",
     "badge.popular": "Populaire",
     "badge.favorite": "Favori",
-    "badge.new": "Nouveau"
+    "badge.new": "Nouveau",
+    "bag.addedTitle": "Ajouté au panier!",
+    "bag.viewBag": "VOIR LE PANIER ET COMMANDER",
+    "bag.continueShopping": "Continuer les achats"
   },
   "en": {
     "nav.home": "Home",
@@ -159,7 +162,10 @@
     "validation.validPhone": "Please enter a valid phone number",
     "badge.popular": "Popular",
     "badge.favorite": "Favorite",
-    "badge.new": "New"
+    "badge.new": "New",
+    "bag.addedTitle": "Added to the bag!",
+    "bag.viewBag": "VIEW BAG & CHECKOUT",
+    "bag.continueShopping": "Continue shopping"
   },
   "es": {
     "nav.home": "Inicio",
@@ -240,6 +246,9 @@
     "validation.validPhone": "Por favor ingresa un número de teléfono válido",
     "badge.popular": "Popular",
     "badge.favorite": "Favorito",
-    "badge.new": "Nuevo"
+    "badge.new": "Nuevo",
+    "bag.addedTitle": "¡Agregado a la bolsa!",
+    "bag.viewBag": "VER BOLSA Y FINALIZAR",
+    "bag.continueShopping": "Continuar comprando"
   }
 }

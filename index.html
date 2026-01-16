@@ -113,6 +113,31 @@
       </div>
     </section>
 
+    <!-- Added to Bag Modal -->
+    <div id="addedToBagModal" class="added-bag-modal" style="display:none;">
+      <div class="added-bag-content">
+        <button class="added-bag-close" onclick="closeAddedToBagModal()" aria-label="Close">✕</button>
+        
+        <h2 data-i18n="bag.addedTitle">¡Agregado a la bolsa!</h2>
+        
+        <div id="addedItemDisplay" class="added-item-display"></div>
+        
+        <div class="added-bag-total">
+          <span data-i18n="orders.total">Total</span>
+          <strong id="addedBagTotal">$0.00</strong>
+        </div>
+        
+        <div class="added-bag-actions">
+          <button class="btn-view-bag" onclick="viewBagAndCheckout()">
+            <span data-i18n="bag.viewBag">VER BOLSA Y FINALIZAR</span>
+          </button>
+          <button class="btn-continue-shopping" onclick="closeAddedToBagModal()">
+            <span data-i18n="bag.continueShopping">Continuar comprando</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <section id="menu" class="section">
       <div class="container">
         <h2 data-i18n="menu.title">Menú</h2>
@@ -521,6 +546,50 @@
       }
     }
 
+    function showAddedToBagModal(itemName, itemPrice, qty){
+      const modal = document.getElementById('addedToBagModal');
+      const display = document.getElementById('addedItemDisplay');
+      const totalEl = document.getElementById('addedBagTotal');
+      
+      // Show added item
+      display.innerHTML = `
+        <div class="added-item">
+          <div class="added-item-info">
+            <strong>${itemName}</strong>
+            <span class="added-item-qty">${qty}x $${itemPrice.toFixed(2)}</span>
+          </div>
+          <div class="added-item-price">$${(itemPrice * qty).toFixed(2)}</div>
+        </div>
+      `;
+      
+      // Calculate and show total
+      let total = 0;
+      for(let id in orderCart){
+        total += orderCart[id].price * orderCart[id].qty;
+      }
+      
+      // Apply discount if coupon is active
+      if(appliedCoupon && validCoupons[appliedCoupon]){
+        const discount = total * (validCoupons[appliedCoupon] / 100);
+        total -= discount;
+      }
+      
+      totalEl.textContent = `$${total.toFixed(2)}`;
+      
+      modal.style.display = 'flex';
+      applyTranslations();
+    }
+
+    function closeAddedToBagModal(){
+      const modal = document.getElementById('addedToBagModal');
+      if(modal) modal.style.display = 'none';
+    }
+
+    function viewBagAndCheckout(){
+      closeAddedToBagModal();
+      document.getElementById('reservas').scrollIntoView({behavior: 'smooth'});
+    }
+
     function changeProductQty(delta){
       const input = document.getElementById('productQty');
       if(input){
@@ -574,8 +643,8 @@
       updateCartDisplay();
       closeProductModal();
       
-      // Scroll to orders section
-      document.getElementById('reservas').scrollIntoView({behavior: 'smooth'});
+      // Show "Added to bag" modal
+      showAddedToBagModal(finalName, finalPrice, qty);
     }
 
     // Simple image modal/lightbox
