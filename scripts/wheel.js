@@ -65,9 +65,7 @@
   }
 
   function generateCoupon(pct){
-    const t = Date.now().toString(36).toUpperCase();
-    const r = Math.random().toString(36).slice(2,8).toUpperCase();
-    return `TULUM${pct}-${t}-${r}`;
+    return `TULUM${pct}`;
   }
 
   // Audio helpers using WebAudio API (runs in browser)

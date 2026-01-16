@@ -192,7 +192,21 @@
           <!-- Shopping Cart -->
           <div class="cart-col">
             <h3 style="margin-top:0" data-i18n="orders.myOrder">Mi pedido</h3>
+            
+            <!-- Coupon Section -->
+            <div class="coupon-section">
+              <div class="coupon-input-group">
+                <input type="text" id="couponInput" class="coupon-input" placeholder="" data-i18n-placeholder="orders.coupon">
+                <button type="button" class="coupon-btn" id="applyCouponBtn" data-i18n="orders.applyCoupon">Aplicar</button>
+              </div>
+              <div id="couponMessage" class="coupon-message"></div>
+            </div>
+            
             <div id="cartItems" class="cart-items"></div>
+            <div id="discountRow" class="discount-row" style="display:none">
+              <span class="label" data-i18n="orders.discount">Descuento</span>
+              <span class="amount" id="discountAmount">-$0.00</span>
+            </div>
             <div class="cart-total">
               <strong><span data-i18n="orders.total">Total</span>: <span id="cartTotal">$0.00</span></strong>
             </div>
@@ -286,6 +300,11 @@
       document.querySelectorAll('[data-i18n-aria]').forEach(el => {
         const key = el.getAttribute('data-i18n-aria');
         if(key && t[key]) el.setAttribute('aria-label', t[key]);
+      });
+      // update placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if(key && t[key]) el.setAttribute('placeholder', t[key]);
       });
     }
 
@@ -544,7 +563,12 @@
       if(orderCart[itemId]){
         orderCart[itemId].qty += qty;
       } else {
-        orderCart[itemId] = {name: finalName, price: finalPrice, qty: qty};
+        orderCart[itemId] = {
+          name: finalName, 
+          price: finalPrice, 
+          qty: qty,
+          productInfo: {catIdx, itemIdx}
+        };
       }
       
       updateCartDisplay();
@@ -685,10 +709,6 @@
       }
     }
 
-    // Shopping Cart for Orders
-    let orderCart = {};
-    let allMenuItems = [];
-
     async function loadOrderMenu(){
       try{
         const r = await fetch('data/menu.json');
@@ -745,28 +765,128 @@
       }
     }
 
+    // Shopping Cart for Orders
+    let orderCart = {};
+    let allMenuItems = [];
+    let appliedCoupon = null;
+    let discountPercentage = 0;
+
     function updateCartDisplay(){
       const cartDiv = document.getElementById('cartItems');
       const totalDiv = document.getElementById('cartTotal');
+      const discountRow = document.getElementById('discountRow');
+      const discountAmount = document.getElementById('discountAmount');
+      
       cartDiv.innerHTML = '';
-      let total = 0;
+      let subtotal = 0;
 
-      Object.values(orderCart).forEach(item => {
+      const editText = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['menu.editButton']) || 'Editar';
+      const deleteText = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['menu.deleteButton']) || 'Eliminar';
+
+      Object.entries(orderCart).forEach(([itemId, item]) => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'cart-item';
-        itemDiv.innerHTML = `
+        
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'cart-item-info';
+        infoDiv.innerHTML = `
           <span class="name">${item.name}</span>
-          <span class="qty">
-            <span>${item.qty}x</span>
-          </span>
-          <span class="price">$${(item.price * item.qty).toFixed(2)}</span>
+          <span class="item-details">${item.qty}x $${item.price.toFixed(2)} = $${(item.price * item.qty).toFixed(2)}</span>
         `;
+        
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'cart-item-actions';
+        
+        const editBtn = document.createElement('button');
+        editBtn.className = 'cart-item-btn edit';
+        editBtn.textContent = editText;
+        editBtn.onclick = () => editCartItem(itemId);
+        
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'cart-item-btn remove';
+        removeBtn.textContent = deleteText;
+        removeBtn.onclick = () => removeCartItem(itemId);
+        
+        actionsDiv.appendChild(editBtn);
+        actionsDiv.appendChild(removeBtn);
+        
+        itemDiv.appendChild(infoDiv);
+        itemDiv.appendChild(actionsDiv);
         cartDiv.appendChild(itemDiv);
-        total += item.price * item.qty;
+        
+        subtotal += item.price * item.qty;
       });
+
+      // Apply discount
+      const discount = subtotal * (discountPercentage / 100);
+      const total = subtotal - discount;
+
+      if(appliedCoupon && discount > 0){
+        discountRow.style.display = 'flex';
+        discountAmount.textContent = `-$${discount.toFixed(2)}`;
+      } else {
+        discountRow.style.display = 'none';
+      }
 
       totalDiv.textContent = `$${total.toFixed(2)}`;
     }
+
+    function editCartItem(itemId){
+      const item = orderCart[itemId];
+      if(!item || !item.productInfo) return;
+      
+      // Open the product modal with the item info
+      openProductModal(item.productInfo.catIdx, item.productInfo.itemIdx);
+      
+      // Remove from cart (will be re-added when user clicks add)
+      delete orderCart[itemId];
+      updateCartDisplay();
+    }
+
+    function removeCartItem(itemId){
+      delete orderCart[itemId];
+      updateCartDisplay();
+    }
+
+    function applyCoupon(){
+      const couponInput = document.getElementById('couponInput');
+      const couponMessage = document.getElementById('couponMessage');
+      const couponCode = couponInput.value.trim().toUpperCase();
+      
+      const successMsg = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['orders.couponApplied']) || '¡Cupón aplicado!';
+      const errorMsg = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['orders.invalidCoupon']) || 'Cupón inválido';
+      
+      // Valid coupons from the wheel (can be extended)
+      const validCoupons = {
+        'TULUM10': 10,
+        'TULUM15': 15,
+        'TULUM20': 20,
+        'TULUM25': 25,
+        'GIRA10': 10,
+        'GIRA15': 15,
+        'GIRA20': 20
+      };
+      
+      if(validCoupons[couponCode]){
+        appliedCoupon = couponCode;
+        discountPercentage = validCoupons[couponCode];
+        couponMessage.textContent = `${successMsg} ${discountPercentage}% OFF`;
+        couponMessage.className = 'coupon-message success';
+        couponInput.disabled = true;
+        updateCartDisplay();
+      } else {
+        couponMessage.textContent = errorMsg;
+        couponMessage.className = 'coupon-message error';
+      }
+    }
+
+    document.getElementById('applyCouponBtn').addEventListener('click', applyCoupon);
+    document.getElementById('couponInput').addEventListener('keypress', (e) => {
+      if(e.key === 'Enter'){
+        e.preventDefault();
+        applyCoupon();
+      }
+    });
 
     document.getElementById('orderForm').addEventListener('submit', (e) => {
       e.preventDefault();
