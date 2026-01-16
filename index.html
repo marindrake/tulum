@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Tulum Dessert & Snacks — Prototipo</title>
   <meta name="description" content="Tulum Dessert & Snacks - postres y snacks artesanales">
-  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -327,247 +328,232 @@
       await loadMenu();
     })();
 
+    let currentCategory = 'all';
+    let menuData = null;
+
+    const getText = (field) => {
+      if(!field) return '';
+      if(typeof field === 'string') return field;
+      return field[LANG] || field.fr || field.en || field.es || Object.values(field)[0] || '';
+    };
+
     async function loadMenu(){
       try{
         const resp = await fetch('data/menu.json');
         if(!resp.ok) throw new Error('Network response not ok');
-        const data = await resp.json();
-        const container = document.getElementById('menuColumns');
-        if(!container) return;
-        container.innerHTML = '';
-        // use translated category titles if available
-        const catTitles = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['menu.categories']) || null;
-
-        const getText = (field) => {
-          if(!field) return '';
-          if(typeof field === 'string') return field;
-          return field[LANG] || field.fr || field.en || field.es || Object.values(field)[0] || '';
-        };
-
-        const slugify = (s) => (s||'')
-          .toString()
-          .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g,'-')
-          .replace(/^-+|-+$/g,'');
-
-        const generateAIImage = (title) => {
-          const w = 1600, h = 1067;
-          const gradId = 'g'+Math.random().toString(36).slice(2);
-          const safe = (title||'Platillo').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-          const protoText = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['image.generated']) || 'Imagen generada (prototipo)';
-          const svg = `<?xml version="1.0" encoding="UTF-8"?>
-          <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
-            <defs>
-              <linearGradient id="${gradId}" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#ffedd5"/>
-                <stop offset="50%" stop-color="#ffe4e6"/>
-                <stop offset="100%" stop-color="#e0f2fe"/>
-              </linearGradient>
-              <filter id="grain">
-                <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" stitchTiles="stitch"/>
-                <feColorMatrix type="saturate" values="0"/>
-                <feComponentTransfer>
-                  <feFuncA type="table" tableValues="0 0.06"/>
-                </feComponentTransfer>
-              </filter>
-            </defs>
-            <rect x="0" y="0" width="100%" height="100%" fill="url(#${gradId})"/>
-            <rect x="0" y="0" width="100%" height="100%" fill="#000" opacity="0.12" filter="url(#grain)"/>
-            <g transform="translate(${w/2}, ${h/2})">
-              <circle r="380" fill="#fff" opacity="0.22"/>
-              <circle r="260" fill="#fff" opacity="0.18"/>
-            </g>
-            <text x="50%" y="50%" font-family="Poppins, Arial, sans-serif" font-size="56" font-weight="800" text-anchor="middle" fill="#121212">${safe}</text>
-            <text x="50%" y="50%" dy="54" font-family="Poppins, Arial, sans-serif" font-size="22" text-anchor="middle" fill="#444">${protoText}</text>
-          </svg>`;
-          return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
-        };
-
-        data.categories.forEach((cat, idx) => {
-          const col = document.createElement('div');
-          col.className = 'menu-col';
-          const h3 = document.createElement('h3');
-          h3.textContent = (catTitles && catTitles[idx]) ? catTitles[idx] : getText(cat.title);
-          col.appendChild(h3);
-          const ul = document.createElement('ul');
-          cat.items.forEach(it => {
-            const li = document.createElement('li');
-            const hasOptions = it.options && it.options.length > 0;
-            
-            // resolve image URL for large view
-            const resolveImage = () => {
-              if(it.image) return it.image;
-              if(it.ai) return generateAIImage(getText(it.name));
-              if(it.thumb){
-                // if a base thumb exists (e.g., assets/thumb-flan.webp), prefer that
-                return it.thumb;
-              }
-              // fallback to a generic gallery image
-              return 'assets/gallery1.webp';
-            };
-            const bigImage = resolveImage();
-            const slug = slugify(getText(it.name));
-            
-            // Left column: item name
-            const spanItem = document.createElement('span');
-            spanItem.className = 'item';
-            spanItem.textContent = getText(it.name);
-            // make item name clickable to open modal
-            const nameLink = document.createElement('a');
-            nameLink.href = bigImage;
-            nameLink.className = 'view-link name-link';
-            nameLink.title = getText(it.name);
-            nameLink.addEventListener('click', (e)=>{ e.preventDefault(); openImageModal(bigImage, getText(it.name)); });
-            nameLink.appendChild(spanItem);
-            li.appendChild(nameLink);
-            
-            // Middle column: thumbnail + price
-            const midCol = document.createElement('div');
-            midCol.className = 'item-right';
-            
-            // Create thumbnail
-            const img = document.createElement('img');
-            img.className = 'menu-thumb';
-            img.alt = getText(it.name);
-            img.loading = 'lazy';
-            
-            // Check if item has a real image or needs AI generation
-            if(it.image || it.ai){
-              img.src = bigImage;
-            } else if(it.thumb){
-              const base = it.thumb.replace(/\.webp$/i, '');
-              const variants = [320,160,64];
-              img.srcset = variants.map(w => `${base}-${w}.webp ${w}w`).join(', ');
-              img.sizes = '(max-width:640px) 64px, 160px';
-              img.src = `${base}-160.webp`;
-            } else {
-              img.src = 'assets/gallery1.webp';
-            }
-            
-            // make thumbnail clickable to open modal
-            const thumbLink = document.createElement('a');
-            thumbLink.href = bigImage;
-            thumbLink.className = 'view-link';
-            thumbLink.addEventListener('click', (e)=>{ e.preventDefault(); openImageModal(bigImage, img.alt); });
-            thumbLink.appendChild(img);
-            midCol.appendChild(thumbLink);
-            
-            // Price below image (or select for options)
-            let selectEl = null;
-            if(hasOptions){
-              const select = document.createElement('select');
-              select.className = 'option-select';
-              select.id = `opt-${slug}`;
-              it.options.forEach((opt, idx) => {
-                const option = document.createElement('option');
-                option.value = idx;
-                option.textContent = `${getText(opt.size)} - ${opt.price}`;
-                select.appendChild(option);
-              });
-              midCol.appendChild(select);
-              selectEl = select; // Guardar referencia directa
-            } else {
-              const spanPrice = document.createElement('span');
-              spanPrice.className = 'price';
-              spanPrice.textContent = it.price;
-              midCol.appendChild(spanPrice);
-            }
-            
-            li.appendChild(midCol);
-            
-            // Right column: quantity control
-            const itemPrice = hasOptions ? parseFloat(it.options[0].price.replace('$', '')) : parseFloat(it.price.replace('$', '').split('/')[0]);
-            const baseId = slug;
-            const itemName = getText(it.name);
-            
-            const qtyControl = document.createElement('div');
-            qtyControl.className = 'qty-control';
-            const qtyInput = document.createElement('input');
-            qtyInput.type = 'number';
-            qtyInput.min = '0';
-            qtyInput.value = '0';
-            qtyInput.id = `qty-${slug}`;
-            
-            qtyInput.addEventListener('change', (e) => {
-              const qty = parseInt(e.target.value) || 0;
-              let finalPrice = itemPrice;
-              let finalName = itemName;
-              let itemId = baseId;
-              
-              if(hasOptions && selectEl){
-                const optIdx = parseInt(selectEl.value);
-                finalPrice = parseFloat(it.options[optIdx].price.replace('$', ''));
-                finalName = `${itemName} (${getText(it.options[optIdx].size)})`;
-                itemId = `${baseId}-opt${optIdx}`; // ID único por opción
-              }
-              
-              if(qty > 0){
-                orderCart[itemId] = {name: finalName, price: finalPrice, qty: qty};
-              } else {
-                delete orderCart[itemId];
-              }
-              updateCartDisplay();
-            });
-            
-            qtyControl.appendChild(qtyInput);
-            
-            const addBtn = document.createElement('button');
-            addBtn.setAttribute('data-i18n', 'menu.addButton');
-            addBtn.textContent = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['menu.addButton']) || 'Agregar';
-            addBtn.type = 'button';
-            addBtn.className = 'qty-btn-add';
-            addBtn.addEventListener('click', () => {
-              const currentQty = parseInt(qtyInput.value) || 0;
-              qtyInput.value = currentQty + 1;
-              qtyInput.dispatchEvent(new Event('change'));
-            });
-            qtyControl.appendChild(addBtn);
-            
-            const removeBtn = document.createElement('button');
-            removeBtn.setAttribute('data-i18n', 'menu.removeButton');
-            removeBtn.textContent = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['menu.removeButton']) || 'Eliminar';
-            removeBtn.type = 'button';
-            removeBtn.className = 'qty-btn-remove';
-            removeBtn.addEventListener('click', () => {
-              const currentQty = parseInt(qtyInput.value) || 0;
-              if(currentQty > 0){
-                qtyInput.value = currentQty - 1;
-                qtyInput.dispatchEvent(new Event('change'));
-              }
-            });
-            qtyControl.appendChild(removeBtn);
-            
-            li.appendChild(qtyControl);
-            
-            // Agregar event listener para el select después de que esté en el DOM
-            if(hasOptions && selectEl){
-              selectEl.addEventListener('change', () => {
-                // Cuando cambia la opción, actualizar el input para mostrar la cantidad de esta opción en el carrito
-                const optIdx = parseInt(selectEl.value);
-                const currentItemId = `${baseId}-opt${optIdx}`;
-                const existingQty = orderCart[currentItemId] ? orderCart[currentItemId].qty : 0;
-                qtyInput.value = existingQty;
-              });
-            }
-            
-            // optional description
-            if(it.desc){
-              const pdesc = document.createElement('p');
-              pdesc.className = 'desc';
-              pdesc.textContent = getText(it.desc);
-              li.appendChild(pdesc);
-            }
-            ul.appendChild(li);
-          });
-          col.appendChild(ul);
-          container.appendChild(col);
-        });
+        menuData = await resp.json();
+        renderMenuTabs();
+        renderMenuGallery();
       }catch(e){
         console.warn('No se pudo cargar menu.json:', e);
       }
     }
-    // loadMenu() is invoked from the async initializer above
+
+    function renderMenuTabs(){
+      const container = document.getElementById('menuColumns');
+      if(!container || !menuData) return;
+      
+      const catNames = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['menu.categoryNames']) || ['Platos principales', 'Snacks y postres', 'Bebidas'];
+      const allText = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['menu.allCategories']) || 'Ver todo';
+      
+      let tabsHTML = '<div class="menu-tabs">';
+      tabsHTML += `<button class="menu-tab ${currentCategory === 'all' ? 'active' : ''}" onclick="filterCategory('all')">${allText}</button>`;
+      menuData.categories.forEach((cat, idx) => {
+        const catName = catNames[idx] || getText(cat.title);
+        tabsHTML += `<button class="menu-tab ${currentCategory === idx ? 'active' : ''}" onclick="filterCategory(${idx})">${catName}</button>`;
+      });
+      tabsHTML += '</div><div id="menuGallery" class="menu-gallery"></div>';
+      container.innerHTML = tabsHTML;
+    }
+
+    function filterCategory(category){
+      currentCategory = category;
+      renderMenuTabs();
+      renderMenuGallery();
+    }
+
+    function renderMenuGallery(){
+      const galleryContainer = document.getElementById('menuGallery');
+      if(!galleryContainer || !menuData) return;
+      
+      galleryContainer.innerHTML = '';
+
+      const categoriesToShow = currentCategory === 'all' ? menuData.categories : [menuData.categories[currentCategory]];
+      
+      categoriesToShow.forEach((cat, catIdx) => {
+        const actualCatIdx = currentCategory === 'all' ? catIdx : currentCategory;
+        cat.items.forEach((item, itemIdx) => {
+          const itemName = getText(item.name);
+          const itemPrice = item.options && item.options.length > 0 ? item.options[0].price : item.price;
+          
+          // Determinar imagen
+          let imgSrc = 'assets/gallery1.webp';
+          if(item.image){
+            imgSrc = item.image;
+          } else if(item.thumb){
+            imgSrc = item.thumb.replace(/-160\.webp$/i, '.png').replace(/-64\.webp$/i, '.png').replace(/-320\.webp$/i, '.png');
+          }
+          
+          const galleryItem = document.createElement('div');
+          galleryItem.className = 'menu-gallery-item';
+          galleryItem.onclick = () => openProductModal(actualCatIdx, itemIdx);
+          galleryItem.innerHTML = `
+            <img src="${imgSrc}" alt="${itemName}" class="menu-gallery-item-image" loading="lazy">
+            <div class="menu-gallery-item-info">
+              <h3 class="menu-gallery-item-name">${itemName}</h3>
+              <p class="menu-gallery-item-price">${itemPrice}</p>
+            </div>
+          `;
+          galleryContainer.appendChild(galleryItem);
+        });
+      });
+    }
+
+    function openProductModal(catIdx, itemIdx){
+      const item = menuData.categories[catIdx].items[itemIdx];
+
+      const itemName = getText(item.name);
+      const itemDesc = getText(item.desc) || '';
+      const hasOptions = item.options && item.options.length > 0;
+      
+      // Determinar imagen
+      let imgSrc = 'assets/gallery1.webp';
+      if(item.image){
+        imgSrc = item.image;
+      } else if(item.thumb){
+        imgSrc = item.thumb.replace(/-160\.webp$/i, '.png').replace(/-64\.webp$/i, '.png').replace(/-320\.webp$/i, '.png');
+      }
+
+      let modal = document.getElementById('productModal');
+      if(!modal){
+        modal = document.createElement('div');
+        modal.id = 'productModal';
+        modal.className = 'product-modal';
+        document.body.appendChild(modal);
+        modal.addEventListener('click', (e) => {
+          if(e.target === modal) closeProductModal();
+        });
+      }
+
+      const addBtnText = (TRANSLATIONS && TRANSLATIONS[LANG] && TRANSLATIONS[LANG]['menu.addButton']) || 'Agregar';
+      
+      let optionsHTML = '';
+      if(hasOptions){
+        const sizeLabel = LANG === 'fr' ? 'Taille' : (LANG === 'en' ? 'Size' : 'Tamaño');
+        optionsHTML = `
+          <div class="product-modal-options">
+            <h3 class="product-modal-options-title">${sizeLabel}</h3>
+            <select id="productOptionSelect" class="product-option-select">
+              ${item.options.map((opt, idx) => `
+                <option value="${idx}">${getText(opt.size)} - ${opt.price}</option>
+              `).join('')}
+            </select>
+          </div>
+        `;
+      }
+
+      const basePrice = hasOptions ? item.options[0].price : item.price;
+      
+      modal.innerHTML = `
+        <div class="product-modal-content">
+          <button class="product-modal-close" onclick="closeProductModal()">✕</button>
+          <div class="product-modal-body">
+            <div class="product-modal-image-section">
+              <img src="${imgSrc}" alt="${itemName}" class="product-modal-image">
+            </div>
+            <div class="product-modal-info-section">
+              <h2 class="product-modal-title">${itemName}</h2>
+              ${itemDesc ? `<p class="product-modal-description">${itemDesc}</p>` : ''}
+              ${optionsHTML}
+              <div class="product-modal-price" id="productPrice">${basePrice}</div>
+              <div class="product-modal-actions">
+                <div class="product-qty-control">
+                  <button class="product-qty-btn" onclick="changeProductQty(-1)">−</button>
+                  <input type="number" id="productQty" class="product-qty-input" value="1" min="1" readonly>
+                  <button class="product-qty-btn" onclick="changeProductQty(1)">+</button>
+                </div>
+                <button class="product-add-btn" onclick="addProductToCart(${catIdx}, ${itemIdx})">${addBtnText}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      if(hasOptions){
+        const select = document.getElementById('productOptionSelect');
+        if(select){
+          select.addEventListener('change', () => {
+            const optIdx = parseInt(select.value);
+            const priceEl = document.getElementById('productPrice');
+            if(priceEl) priceEl.textContent = item.options[optIdx].price;
+          });
+        }
+      }
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProductModal(){
+      const modal = document.getElementById('productModal');
+      if(modal){
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function changeProductQty(delta){
+      const input = document.getElementById('productQty');
+      if(input){
+        const current = parseInt(input.value) || 1;
+        const newVal = Math.max(1, current + delta);
+        input.value = newVal;
+      }
+    }
+
+    function addProductToCart(catIdx, itemIdx){
+      const item = menuData.categories[catIdx].items[itemIdx];
+
+      const qty = parseInt(document.getElementById('productQty').value) || 1;
+      const hasOptions = item.options && item.options.length > 0;
+      
+      const slugify = (s) => (s||'')
+        .toString()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g,'-')
+        .replace(/^-+|-+$/g,'');
+
+      const itemName = getText(item.name);
+      const baseId = slugify(itemName);
+      
+      let finalPrice, finalName, itemId;
+      
+      if(hasOptions){
+        const select = document.getElementById('productOptionSelect');
+        const optIdx = parseInt(select.value);
+        finalPrice = parseFloat(item.options[optIdx].price.replace('$', ''));
+        finalName = `${itemName} (${getText(item.options[optIdx].size)})`;
+        itemId = `${baseId}-opt${optIdx}`;
+      } else {
+        finalPrice = parseFloat(item.price.replace('$', '').split('/')[0]);
+        finalName = itemName;
+        itemId = baseId;
+      }
+
+      if(orderCart[itemId]){
+        orderCart[itemId].qty += qty;
+      } else {
+        orderCart[itemId] = {name: finalName, price: finalPrice, qty: qty};
+      }
+      
+      updateCartDisplay();
+      closeProductModal();
+      
+      // Scroll to orders section
+      document.getElementById('reservas').scrollIntoView({behavior: 'smooth'});
+    }
+
     // Simple image modal/lightbox
     function openImageModal(src, alt){
       let modal = document.getElementById('imageModal');

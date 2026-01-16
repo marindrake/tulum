@@ -11,10 +11,16 @@
     "hero.cta.reserve": "Réserver",
     "featured.title": "Menu en vedette",
     "menu.title": "Menu",
+    "menu.allCategories": "Tout voir",
     "menu.categories": [
       "Plats principaux (CAD)",
       "Snacks et desserts (CAD)",
       "Boissons (CAD)"
+    ],
+    "menu.categoryNames": [
+      "Plats principaux",
+      "Snacks & Desserts",
+      "Boissons"
     ],
     "reservations.title": "Réservations",
     "reservations.name": "Nom",
@@ -79,10 +85,16 @@
     "hero.cta.reserve": "Reserve",
     "featured.title": "Featured Menu",
     "menu.title": "Menu",
+    "menu.allCategories": "View All",
     "menu.categories": [
       "Main dishes (CAD)",
       "Snacks & desserts (CAD)",
       "Drinks (CAD)"
+    ],
+    "menu.categoryNames": [
+      "Main Dishes",
+      "Snacks & Desserts",
+      "Drinks"
     ],
     "reservations.title": "Reservations",
     "reservations.name": "Name",
@@ -147,10 +159,16 @@
     "hero.cta.reserve": "Reservar",
     "featured.title": "Menú destacado",
     "menu.title": "Menú",
+    "menu.allCategories": "Ver todo",
     "menu.categories": [
       "Platos principales (CAD)",
       "Snacks y postres (CAD)",
       "Bebidas (CAD)"
+    ],
+    "menu.categoryNames": [
+      "Platos principales",
+      "Snacks y postres",
+      "Bebidas"
     ],
     "reservations.title": "Reservas",
     "reservations.name": "Nombre",
