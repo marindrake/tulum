@@ -85,8 +85,8 @@
     {
       "title": "Snacks y postres (precios en)",
       "items": [
-        { "name": { "es": "Papas fritas lajeadas (350 grs)", "en": "Sliced potato chips (350 grs)", "fr": "Chips de pommes de terre tranchées (350 grs)" }, "price": "$5.00", "ai": true },
-        { "name": { "es": "Chicharrines (350 grs)", "en": "Pork rinds (350 grs)", "fr": "Chicharrines (350 grs)" }, "price": "$5.00", "ai": true },
+        { "name": { "es": "Papas fritas lajeadas (350 grs)", "en": "Sliced potato chips (350 grs)", "fr": "Chips de pommes de terre tranchées (350 grs)" }, "price": "$5.00", "image": "assets/papas-fritas-lajeadas.png" },
+        { "name": { "es": "Chicharrines (350 grs)", "en": "Pork rinds (350 grs)", "fr": "Chicharrines (350 grs)" }, "price": "$5.00", "image": "assets/chicharrines.png" },
         { "name": { "es": "Totopos (350 grs)", "en": "Tortilla chips (350 grs)", "fr": "Totopos (350 grs)" }, "price": "$5.00", "image": "assets/totopos.png" },
         { "name": { "es": "Gelatinas de fruta y de leche (16 oz)", "en": "Fruit and milk gelatin (16 oz)", "fr": "Gélatines de fruits et de lait (16 oz)" }, "price": "$6.00", "image": "assets/gelatinas-fruta-leche.png" },
         { "name": { "es": "Fresas con crema (16 oz)", "en": "Strawberries with cream (16 oz)", "fr": "Fraises à la crème (16 oz)" }, "price": "$11.00", "image": "assets/fresas-crema.png" },
@@ -96,7 +96,7 @@
         { "name": { "es": "Churros (3)", "en": "Churros (3)", "fr": "Churros (3)" }, "price": "$5.00", "image": "assets/churros.png" },
         { "name": { "es": "Bolitas con topping", "en": "Topped balls", "fr": "Boules garnies" }, "price": "$3.00", "image": "assets/bolitas.png" },
         { "name": { "es": "Waffles", "en": "Waffles", "fr": "Gaufres" }, "price": "$6.00", "image": "assets/waffles.png" },
-        { "name": { "es": "Flan de platano", "en": "Banana flan", "fr": "Flan à la banane" }, "price": "$5.00", "thumb": "assets/thumb-flan.webp", "ai": true },
+        { "name": { "es": "Flan de platano", "en": "Banana flan", "fr": "Flan à la banane" }, "price": "$5.00", "image": "assets/flan-platano.png" },
         { "name": { "es": "Arroz con leche (16 oz)", "en": "Rice pudding (16 oz)", "fr": "Riz au lait (16 oz)" }, "price": "$5.00", "image": "assets/arroz-leche.png" }
       ]
     },
