@@ -8,16 +8,18 @@ if not os.path.isdir(ASSETS):
     os.makedirs(ASSETS, exist_ok=True)
 
 name = 'Tulum Dessert & Snacks'
-phone = '+1 514-937-7754'
+phones = ['+1 514-937-7754', '+1 514-638-8399']
 address = '7070 Henri Julien Ave, Montreal, Quebec H2S 3A3, Canada'
 hours = '8:00 AM - 6:00 PM, Todos los días'
 website = ''
 
+# Generate vCard with both phone numbers
+phone_lines = '\n'.join([f'TEL;TYPE=WORK,VOICE:{p}' for p in phones])
 vcard = f'''BEGIN:VCARD
 VERSION:3.0
 FN:{name}
 ORG:{name}
-TEL;TYPE=WORK,VOICE:{phone}
+{phone_lines}
 ADR;TYPE=WORK:;;{address}
 NOTE:{hours}
 END:VCARD
